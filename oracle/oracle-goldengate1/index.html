@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Oracle GoldenGate 介绍 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", Oracle, 数据库, GoldenGate, 介绍"> 
+  
+  <meta name="description" content="Oracle Golden Gate 软件是一种基于日..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">Oracle GoldenGate 介绍</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic12.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Oracle GoldenGate 介绍</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>March 26, 2017</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/oracle/oracle-goldengate1/"
+          class="leancloud" data-flag-title="Oracle GoldenGate 介绍"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1395</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Oracle Golden Gate 软件是一种基于日志的结构化数据复制备份软件，它通过解析源数据库在线日志或归档日志获得数据的增量变化，再将这些变化应用到目标数据库，从而实现源数据库与目标数据库同步。Oracle Golden Gate可以在异构的 IT 基础结构（包括几乎所有常用操作系统平台和数据库平台）之间实现大量数据亚秒一级的实时复制，从而在可以在应急系统、在线报表、实时数据仓库供应、交易跟踪、数据同步、集中/分发、容灾、数据库升级和移植、双业务中心等多个场景下应用。同时，Oracle Golden Gate 可以实现一对一、广播(一对多)、聚合(多对一)、双向、点对点、级联等多种灵活的拓扑结构。和传统的逻辑复制一样，Oracle GoldenGate 实现原理是通过抽取源端的 redo log 或者 archive log，然后通过TCP/IP投递到目标端，最后解析还原应用到目标端，使目标端实现同源端数据同步</p>
+<h2 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h2><p>以下是 OracleGoldenGate 的技术架构：<br><img   class="lazyload" data-original="https://pic.feminzai.com/gg1-1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="技术架构"></p>
+<ol>
+<li>Manager 进程:<br>Manager 进程是 GoldenGate 的控制进程，运行在源端和目标端上。它主要作用有以下几个方面：启动、监控、重启 Goldengate 的其他进程，报告错误及事件，分配数据存储空间，发布阀值报告等。</li>
+<li>Extract 进程:<br>Extract 运行在数据库源端，负责从源端数据表或者日志中捕获数据。</li>
+<li>Pump进程:<br>Pump 进程运行在数据库源端。其作用是如果源端使用了本地的 trail 文件，那么 pump 进程就会把 trail 以数据块的形式通过 TCP/IP 协议发送到目标端，这通常也是推荐的方式。pump 进程本质是 extract 进程的一种特殊形式，如果不使用 trails 文件，那么就是 extract 进程在抽取完数据以后，直接投递到目标端。</li>
+<li>Trail 文件:<br>为了更有效、更安全的把数据库事务信息从源端投递到目标端。GoldenGate 引进 trail 文件的概念。前面提到 extract 抽取完数据以后 Goldengate 会将抽取的事务信息转化为一种 GoldenGate 专有格式的文件。然后 pump 负责把源端的 trail 文件投递到目标端，所以源、目标两端都会存在这种文件。trail 文件存在的目的旨在防止单点故障，将事务信息持久化，并且使用 checkpoint 机制来记录其读写位置，如果故障发生，则数据可以根据 checkpoint 记录的位置来重传。</li>
+<li>Replicat 进程:<br>Replicat 进程，通常我们也把它叫做应用进程。运行在目标端，是数据传递的最后一站，负责读取目标端 trail 文件中的内容，并将其解析为 DML 或 DDL 语句，然后应用到目标数据库中。</li>
+<li>GGSCI:<br>GGSCI 是 GoldenGate Software Command Interface 的缩写，它提供了十分丰富的命令来对 Goldengate 进行各种操作，如创建、修改、监控 GoldenGate 进程等等</li>
+</ol>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/oracle/oracle-goldengate1/index.html">https://www.feminzai.com/oracle/oracle-goldengate1/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/oracle/oracle-goldengate2/"><i class="iconfont iconleft"></i>Oracle GoldenGate Java Adapter 开发介绍</a>
+  
+  
+    <a href="/oracle/oracle-aggregation-func/">Oracle 聚合函数学习<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84"><span class="toc-text">技术架构</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

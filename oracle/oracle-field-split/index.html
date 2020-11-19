@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Oracle 单字段拆分成多行 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", Oracle, 数据库, 字段, 拆分"> 
+  
+  <meta name="description" content="方法一12345678SELECT DISTINCT	..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">Oracle 单字段拆分成多行</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/img4.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Oracle 单字段拆分成多行</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>May 08, 2017</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/oracle/oracle-field-split/"
+          class="leancloud" data-flag-title="Oracle 单字段拆分成多行"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1219</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span><br>	STUID,<br>	REGEXP_SUBSTR (STUNAME, <span class="hljs-string">&#x27;[^,]+&#x27;</span>, <span class="hljs-number">1</span>, <span class="hljs-keyword">LEVEL</span>) STUNAME,<br>	STUSEX<br><span class="hljs-keyword">FROM</span><br>	T_STU <span class="hljs-keyword">CONNECT</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">LEVEL</span> &lt;= <span class="hljs-keyword">LENGTH</span> (STUNAME) - <span class="hljs-keyword">LENGTH</span> (<span class="hljs-keyword">REPLACE</span>(STUNAME, <span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)) + <span class="hljs-number">1</span><br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span><br>	STUID;<br></code></pre></td></tr></table></figure>
+
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span><br>	STUID,<br>	REGEXP_SUBSTR (STUNAME, <span class="hljs-string">&#x27;[^,]+&#x27;</span>, <span class="hljs-number">1</span>, lv) STUNAME,<br>	STUSEX<br><span class="hljs-keyword">FROM</span><br>	T_STU,<br>	(<br>		<span class="hljs-keyword">SELECT</span><br>			<span class="hljs-keyword">LEVEL</span> lv<br>		<span class="hljs-keyword">FROM</span><br>			dual <span class="hljs-keyword">CONNECT</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">LEVEL</span> &lt; <span class="hljs-number">10</span><br>	) b<br><span class="hljs-keyword">WHERE</span><br>	b.lv &lt;= REGEXP_COUNT (T_STU.STUNAME, <span class="hljs-string">&#x27;\,&#x27;</span>) + <span class="hljs-number">1</span><br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span><br>	STUID;<br></code></pre></td></tr></table></figure>
+
+<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> stuid,<span class="hljs-keyword">substr</span>(a.stuname, <span class="hljs-keyword">instr</span>(a.stuname, <span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-number">1</span>, levels.lvl) + <span class="hljs-number">1</span>, <span class="hljs-keyword">instr</span>(a.stuname, <span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-number">1</span>, levels.lvl + <span class="hljs-number">1</span>) -(<span class="hljs-keyword">instr</span>(a.stuname, <span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-number">1</span>, levels.lvl) + <span class="hljs-number">1</span>)) <span class="hljs-keyword">as</span> stuname,stusex<br><span class="hljs-keyword">FROM</span> <br>(<span class="hljs-keyword">SELECT</span> stuid,<span class="hljs-string">&#x27;,&#x27;</span> || stuname || <span class="hljs-string">&#x27;,&#x27;</span> <span class="hljs-keyword">AS</span> stuname,stusex,<span class="hljs-keyword">length</span>(stuname) - nvl(<span class="hljs-keyword">length</span>(<span class="hljs-keyword">REPLACE</span>(stuname, <span class="hljs-string">&#x27;,&#x27;</span>)), <span class="hljs-number">0</span>) + <span class="hljs-number">1</span> <span class="hljs-keyword">AS</span> cnt <span class="hljs-comment">--取待拆分字段每行按照分隔符&#x27;,&#x27;分割后的记录数，用于connect by</span><br><span class="hljs-keyword">FROM</span> T_STU) a,<br>(<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">rownum</span> <span class="hljs-keyword">AS</span> lvl <span class="hljs-comment">--产生一个待拆分字段分割后最大记录数的序列</span><br><span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span>(<span class="hljs-keyword">length</span>(stuname || <span class="hljs-string">&#x27;,&#x27;</span>) - nvl(<span class="hljs-keyword">length</span>(<span class="hljs-keyword">REPLACE</span>(stuname, <span class="hljs-string">&#x27;,&#x27;</span>)), <span class="hljs-number">0</span>)) max_len <span class="hljs-keyword">FROM</span> T_STU)<br><span class="hljs-keyword">CONNECT</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">LEVEL</span> &lt;= max_len) <span class="hljs-keyword">levels</span><br><span class="hljs-keyword">WHERE</span> levels.lvl &lt;= a.cnt <span class="hljs-comment">--笛卡尔连接</span><br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> stuid;<br></code></pre></td></tr></table></figure>
+
+<p>性能上方法三最优，其次方法二，方法一因为有distinct，性能可想而知</p>
+
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/oracle/oracle-field-split/index.html">https://www.feminzai.com/oracle/oracle-field-split/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/oracle/oracle-over-rank/"><i class="iconfont iconleft"></i>Oracle over 函数和 rank 函数学习</a>
+  
+  
+    <a href="/oracle/oracle-decode/">Oracle decode函数学习<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-text">方法二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89"><span class="toc-text">方法三</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

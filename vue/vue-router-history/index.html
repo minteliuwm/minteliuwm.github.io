@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>如何优雅的使用 Vue Router History 模式 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", Vue, TypeScript, 前端, router, history, 路由"> 
+  
+  <meta name="description" content="如果不想要很丑的 hash，我们可以用路由的 hist..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">如何优雅的使用 Vue Router History 模式</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic18.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">如何优雅的使用 Vue Router History 模式</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>July 05, 2019</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/vue/vue-router-history/"
+          class="leancloud" data-flag-title="如何优雅的使用 Vue Router History 模式"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3168</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <blockquote>
+<p>如果不想要很丑的 hash，我们可以用路由的 history 模式，这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。 —— Vue Router 官网</p>
+</blockquote>
+<h2 id="为啥要使用-History-模式"><a href="#为啥要使用-History-模式" class="headerlink" title="为啥要使用 History 模式"></a>为啥要使用 History 模式</h2><p>还能有什么原因，hash 模式的 # 不好看呗，当然了，我们也不能仅仅只看颜值，还有一些其他原因，例如 hash 模式下对一些需要锚点功能的需求会和他的路由机制有冲突，而相比于 hash 模式，hisitory 模式有以下几个点值得留意：</p>
+<ol>
+<li>新的 URL 可以是与当前 URL 同源的任意 URL 。而设置 window.location 仅当你只修改了哈希值时才保持同一个 document。</li>
+<li>设置的新 URL 可以与当前 URL 一模一样，这样也会把记录添加到栈中，而 hash 设置的新值必须与原来不一样才会触发动作将记录添加到栈中。</li>
+<li>你可以为新的历史记录项关联任意数据。而基于哈希值的方式，则必须将所有相关数据编码到一个短字符串里。 </li>
+<li>可额外设置 title 属性供后续使用。</li>
+</ol>
+<h2 id="配置-History"><a href="#配置-History" class="headerlink" title="配置 History"></a>配置 History</h2><p>说干就干，开始将我们项目的路由模式切换成 history 模式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;<br>  mode: <span class="hljs-string">&#x27;history&#x27;</span>,<br>  routes: [...]<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>配置就是这么 easy，按道理，本篇文章到这也差不多可以结束了，但如果真的这么结束了，那我只能说 too young, too simple ，配置虽然简单，但切换后不仅需要后台的支持，还有一堆的坑等着你来踩呢。</p>
+<h2 id="后端配置"><a href="#后端配置" class="headerlink" title="后端配置"></a>后端配置</h2><p>当我们在界面上点击刷新按钮的时候，会发现页面一片空白，这是为啥？打开控制台就会看到几个显眼的404，至于原因嘛，在官网上就有提到，History 这种模式要玩好，还需要后台配置支持。简单来讲就是，如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是我们 app 依赖的页面。<br>至于怎么配置，那就不是我们前端关心的事了，当然咯，作为励志成为爆栈工程师的我们，还是有必要了解一下这个配置过程，具体看<a href="!https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90">官网</a>就行，不行就 Google。</p>
+<p>这里针对官网的内容补充一点就是，实际使用过程中，我们往往会将整个 dist 目录放到网站的根目录下，这时候就需要配置项目的 baseUrl。</p>
+<ol>
+<li>vue.config.js 中配置 publicPath<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  publicPath: <span class="hljs-string">&#x27;/dist&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>路由配置 base<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;<br>  mode: <span class="hljs-string">&#x27;history&#x27;</span>,<br>  base: process.env.BASE_URL,<br>  routes: [...]<br>&#125;);<br></code></pre></td></tr></table></figure></li>
+<li>修改 nginx 配置<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">location / &#123;<br>  try_files <span class="hljs-symbol">$uri</span> <span class="hljs-symbol">$uri</span>/ <span class="hljs-regexp">/dist/i</span>ndex.html;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>此时我们的访问路径就应该类似这样：<a target="_blank" rel="noopener" href="http://localhost:8888/dist/home">http://localhost:8888/dist/home</a></p>
+<p>有时候，我们可能需要 URL 的前缀不是 dist 而是 vue，当然也有可能想通过一个二级域名或者不带前缀的域名来访问，对于这样的需求，这里仅提供一种 nginx 反向代理的方案：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>  <span class="hljs-attribute">listen</span>       <span class="hljs-number">8887</span>;<br><br>  <span class="hljs-attribute">location</span> / &#123;<br>    <span class="hljs-attribute">rewrite</span> / /vue ;<br>  &#125;<br><br>  <span class="hljs-attribute">location</span> /vue &#123;<br>    <span class="hljs-attribute">proxy_pass</span> http://localhost:8888/dist;<br>    <span class="hljs-attribute">proxy_set_header</span> Host $host:$server_port;<br>  &#125;<br>&#125;<br><br><span class="hljs-section">server</span> &#123;<br>  <span class="hljs-attribute">listen</span>       <span class="hljs-number">8888</span>;<br>  <span class="hljs-attribute">server_name</span>  localhost;<br><br>  <span class="hljs-attribute">location</span> / &#123;<br>    <span class="hljs-attribute">root</span>   html;<br>    <span class="hljs-attribute">index</span>  index.html index.htm;<br>    <span class="hljs-attribute">try_files</span> $uri $uri/ /dist/index.html;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="踩坑实录"><a href="#踩坑实录" class="headerlink" title="踩坑实录"></a>踩坑实录</h2><p>如果只是上面提到的简单配置就能搞定，那这篇文章也没啥好写的，毕竟官网写的那么详细，既然写了，就说明，本人在从 hash 模式切换到 history 模式的过程中，除了配置之外，还有那么一丢丢可以聊一聊的故事。</p>
+<h3 id="Uncaught-SyntaxError-Unexpected-token-lt"><a href="#Uncaught-SyntaxError-Unexpected-token-lt" class="headerlink" title="Uncaught SyntaxError: Unexpected token &lt;"></a>Uncaught SyntaxError: Unexpected token &lt;</h3><p>项目用的脚手架 vue-cli 3，之前 hash 模式打包后，会出现找不到静态资源的情况，将 publicPath 修改为 ‘./‘(默认是’/‘)，很凑巧，改成 history 模式后，会报错 Uncaught SyntaxError: Unexpected token &lt; ，该问题产生原因跟我们之前 hash 模式下打包时配置的相对路径有关，将其改回绝对路径即可。</p>
+<h3 id="本地预览打包后的项目"><a href="#本地预览打包后的项目" class="headerlink" title="本地预览打包后的项目"></a>本地预览打包后的项目</h3><p>hash 模式下，我们直接打包后，打开 dist 目录下的 index.html 文件就可以预览，但是 history 模式不行，那咋整呢？自己本地搭一个服务器，运行静态资源呗。</p>
+<p>既然是前端开发，最熟悉的莫过于 Node 了，这里以 express 为例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><span class="hljs-keyword">const</span> app = express();<br><br><span class="hljs-keyword">const</span> PORT = <span class="hljs-number">8081</span>;<br><br>app.set(<span class="hljs-string">&#x27;port&#x27;</span>, PORT);<br><br>app.use(<span class="hljs-string">&#x27;/&#x27;</span>, express.static(<span class="hljs-string">&#x27;./dist&#x27;</span>));<br><br>app.listen(app.get(<span class="hljs-string">&#x27;port&#x27;</span>), <span class="hljs-function">() =&gt;</span> &#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Server Running&#x27;</span>);<br>&#125;);<br><br></code></pre></td></tr></table></figure>
+
+<p>启动服务器即可访问，既然是 history 模式，就不可避免的会存在我们前文提到的刷新后界面空白问题，所以我们还需要做一个重定向处理。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> history = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;connect-history-api-fallback&#x27;</span>);<br><br>app.use(history());<br></code></pre></td></tr></table></figure>
+
+<p>这样就完了吗？还不够！因为之前开发环境是通过配置 devServer.proxy 来请求后端接口，所以我们还需要加一个反向代理。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> HOST = <span class="hljs-string">&#x27;http://xx.xxx.xx.xx:xx&#x27;</span>;<br><br>app.use(proxy(<span class="hljs-string">&#x27;/xxx&#x27;</span>, &#123;<br>	target: HOST<br>&#125;));<br></code></pre></td></tr></table></figure>
+
+<p>然后重启服务，预览效果，破菲特！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>啰嗦了这么多，其实总结起来就是一句话，看官方文档，官方文档不够就 Google 来凑！</p>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/vue/vue-router-history/index.html">https://www.feminzai.com/vue/vue-router-history/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/vue/vue-code-diff/"><i class="iconfont iconleft"></i>Vue 源码学习之 diff 算法</a>
+  
+  
+    <a href="/vue/vue-tips/">Vue 使用的一些小技巧<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E5%95%A5%E8%A6%81%E4%BD%BF%E7%94%A8-History-%E6%A8%A1%E5%BC%8F"><span class="toc-text">为啥要使用 History 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-History"><span class="toc-text">配置 History</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">后端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95"><span class="toc-text">踩坑实录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Uncaught-SyntaxError-Unexpected-token-lt"><span class="toc-text">Uncaught SyntaxError: Unexpected token &lt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="toc-text">本地预览打包后的项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

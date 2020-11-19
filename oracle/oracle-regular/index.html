@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Oracle 正则表达式函数学习 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", Oracle, 数据库, 正则, like, instr, replace, substr, regexp"> 
+  
+  <meta name="description" content="正则表达式中的元字符-n：匹配换行符
+-^：匹配字符串..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">Oracle 正则表达式函数学习</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic14.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Oracle 正则表达式函数学习</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>March 23, 2017</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/oracle/oracle-regular/"
+          class="leancloud" data-flag-title="Oracle 正则表达式函数学习"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1783</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="正则表达式中的元字符"><a href="#正则表达式中的元字符" class="headerlink" title="正则表达式中的元字符"></a>正则表达式中的元字符</h2><pre><code>-n：匹配换行符
+-^：匹配字符串的开头位置 如果A是字符串的第一个字符，^A 匹配 A 
+-$：匹配字符串的末尾位置 如果B是字符串的最后一个字符，$B 匹配 B
+-*：匹配前面的字符0次或多次 ba*rk 可以匹配 brk、bark、baark 等等
+-+：匹配前面的字符1次或多次 ba+rk 可以匹配 bark、baark等等,但是不能匹配 brk，也就是说，最少有一次
+-?： 匹配前面的字符0次或1次 ba?rk 可以匹配 bark、brk等等,但是不能匹配 baark
+-&#123;n&#125;：匹配前面的字符恰好是 n 次，其中 n 是整数 hob&#123;2&#125;it 可以匹配 hobbit
+-&#123;n,m&#125;：匹配前面的字符至少是 n 次，最多是 m 次，其中 n，m 都是整数 hob&#123;2,3&#125;it 可以匹配 hobbit 或者 hobbbit
+-.：匹配除 null 以外的任意单个字符，hob.it 中的 . 可以是任意的单个字符，如：hobsit，hobbit 等等
+-(pattern)：括号中 pattern 是一个子正则表达式，匹配指定 pattern 模式的一个子表达式， 如：aaa(x|y) 可以匹配 aaax 或者aaay 
+-x|y：匹配“或”， x|y 可以匹配 x 或者 y
+-[abc]：可以匹配 abc 中的任何单个字符 hello[abc] 可以匹配 helloa，hellob，helloc
+-[a-z]：可以匹配指定范围内的任何单个字符 hell[a-z] 可以匹配 hello 或者 hellz
+-[::]：指定一个字符类，可以匹配该类中的任何字符 [:alphanum:] 可以匹配字符 0-9、A-Z、a-z
+-[:alpha:]：可以匹配字符 A-Z、a-z
+-[:blank:]：可以匹配空格或 tab 键
+-[:digit:]：可以匹配数字 0-9
+-[:graph:]：可以匹配非空字符
+-[:lower:]：可以匹配小写字母 a-z
+-[:upper:]：可以匹配大写字母 A-Z
+-[:print:]与 [:graph:] 类似，不同之处在于 [:print:] 包括空格字符
+-[:punct:]：可以匹配标点符号.,&quot;&quot;等等
+-[:space:]：可以匹配所有的空字符
+-[:xdigit:]：可以匹配十六进制数字 0-9、A-F、a-f</code></pre>
+<h2 id="正则表达式中的可选参数"><a href="#正则表达式中的可选参数" class="headerlink" title="正则表达式中的可选参数"></a>正则表达式中的可选参数</h2><pre><code>1.示例：REGEXP_LIKE(x,pattern[,match_option])——用于在 x 中查找正则表达式 pattern，该函数还可以提供一个可选的参数 match_option 字符串说明默认的匹配选项
+2.match_option 的取值：
+    -&#39;c&#39;：说明在进行匹配时区分大小写（缺省值）
+    -&#39;i&#39;：说明在进行匹配时不区分大小写
+    -&#39;n&#39;：允许使用可以匹配任意字符的操作符
+    -&#39;m&#39;：将x作为一个包含多行的字符串</code></pre>
+<h2 id="Oracle-支持的四个正则表达式函数"><a href="#Oracle-支持的四个正则表达式函数" class="headerlink" title="Oracle 支持的四个正则表达式函数"></a>Oracle 支持的四个正则表达式函数</h2><h3 id="REGEXP-LIKE"><a href="#REGEXP-LIKE" class="headerlink" title="REGEXP_LIKE"></a>REGEXP_LIKE</h3><pre><code>1.功能：与 LIKE 的功能相似
+2.示例：select * from test where regexp_like(mc,&#39;^a&#123;1,3&#125;&#39;);</code></pre>
+<h3 id="REGEXP-INSTR"><a href="#REGEXP-INSTR" class="headerlink" title="REGEXP_INSTR"></a>REGEXP_INSTR</h3><pre><code>1.功能：与 INSTR 的功能相似
+2.示例：select regexp_instr(mc,&#39;[[:digit:]]$&#39;) from test;</code></pre>
+<h3 id="REGEXP-SUBSTR"><a href="#REGEXP-SUBSTR" class="headerlink" title="REGEXP_SUBSTR"></a>REGEXP_SUBSTR</h3><pre><code>1.功能：与 SUBSTR 的功能相似
+2.示例：select regexp_substr(mc,&#39;[a-z]+&#39;) from test; </code></pre>
+<h3 id="REGEXP-REPLACE"><a href="#REGEXP-REPLACE" class="headerlink" title="REGEXP_REPLACE"></a>REGEXP_REPLACE</h3><pre><code>1.功能：与 REPLACE 的功能相似
+2.示例：select regexp_replace(&#39;Joe Smith&#39;,&#39;( )&#123;2,&#125;&#39;, &#39;,&#39;) as replace from dual;</code></pre>
+
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/oracle/oracle-regular/index.html">https://www.feminzai.com/oracle/oracle-regular/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/oracle/oracle-aggregation-func/"><i class="iconfont iconleft"></i>Oracle 聚合函数学习</a>
+  
+  
+    <a href="/oracle/oracle-coalesce/">Oracle NVL,NVL2,COALESCE 函数学习<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%85%83%E5%AD%97%E7%AC%A6"><span class="toc-text">正则表达式中的元字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0"><span class="toc-text">正则表达式中的可选参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Oracle-%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E4%B8%AA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%87%BD%E6%95%B0"><span class="toc-text">Oracle 支持的四个正则表达式函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#REGEXP-LIKE"><span class="toc-text">REGEXP_LIKE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REGEXP-INSTR"><span class="toc-text">REGEXP_INSTR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REGEXP-SUBSTR"><span class="toc-text">REGEXP_SUBSTR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REGEXP-REPLACE"><span class="toc-text">REGEXP_REPLACE</span></a></li></ol></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

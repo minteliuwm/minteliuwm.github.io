@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue Cli3 从 0 开始搭建组件库 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", 前端, Vue, 组件库, 脚手架, cli3"> 
+  
+  <meta name="description" content="为什么要自己搭建组件库？市面上已经存在了那么多优秀的组..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">Vue Cli3 从 0 开始搭建组件库</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic20.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Vue Cli3 从 0 开始搭建组件库</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>June 20, 2019</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/vue/vue-custom-ui/"
+          class="leancloud" data-flag-title="Vue Cli3 从 0 开始搭建组件库"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>9307</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <blockquote>
+<p>一时造轮子一时爽，一直造轮子一直爽。</p>
+</blockquote>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>为什么要自己搭建组件库？市面上已经存在了那么多优秀的组件库，为什么要重复造轮子？其实也没什么特别的理由，真要说一个的话，就是市面上的再好也不如自己的适合，每个团队或多或少都会需要自己的组件库，项目的风格，交互等并一定是市面上能满足的，而且搭建组件库是一个长期的过程，在这个过程中，我们会去思考怎么编写组件，也会遇到各式各样的问题，这对我们来说其实是一个不错的学习和成长的过程。</p>
+<p>废话少说，先上<a target="_blank" rel="noopener" href="https://github.com/minteliuwm/ndc-ui">源码地址</a></p>
+<h2 id="项目搭建"><a href="#项目搭建" class="headerlink" title="项目搭建"></a>项目搭建</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>用 Vue Cli3 创建一个项目，具体怎么创建，这边就不赘述了，<a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/">官网</a>上有很详细的描述。</p>
+<h3 id="修改目录结构"><a href="#修改目录结构" class="headerlink" title="修改目录结构"></a>修改目录结构</h3><p>前面也说了， 市面上有很多优秀的组件库，我们不会完全照搬照抄，但是借鉴一波也无可厚非。</p>
+<ul>
+<li>首先，修改 src 目录为examples，用来放我们的实例代码及文。</li>
+<li>然后，新增一个目录 packages，用来存放我们的组件源码。<br>完整的目录结构如下图：</li>
+</ul>
+<p><img   class="lazyload" data-original="https://pic.feminzai.com/ui-1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="目录结构"></p>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>目录结构调整后，毫无疑问，配置文件也需要调整，新建 vue.config.js，填入以下内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><br><span class="hljs-keyword">const</span> resolve = <span class="hljs-function">(<span class="hljs-params">dir</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> path.join(__dirname, dir);<br>&#125;;<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  publicPath: <span class="hljs-string">&#x27;./&#x27;</span>,<br>  productionSourceMap: <span class="hljs-literal">false</span>,<br>  pages: &#123;<br>    index: &#123;<br>      entry: <span class="hljs-string">&#x27;examples/main.js&#x27;</span>,<br>      template: <span class="hljs-string">&#x27;public/index.html&#x27;</span>,<br>      filename: <span class="hljs-string">&#x27;index.html&#x27;</span><br>    &#125;<br>  &#125;,<br>  configureWebpack: &#123;<br>    resolve: &#123;<br>      alias: &#123;<br>        <span class="hljs-string">&#x27;@&#x27;</span>: resolve(<span class="hljs-string">&#x27;examples&#x27;</span>)<br>      &#125;<br>    &#125;<br>  &#125;,<br>  chainWebpack: <span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> &#123;<br>    config.module<br>      .rule(<span class="hljs-string">&#x27;md&#x27;</span>)<br>      .test(<span class="hljs-regexp">/\.md/</span>)<br>      .use(<span class="hljs-string">&#x27;vue-loader&#x27;</span>)<br>      .loader(<span class="hljs-string">&#x27;vue-loader&#x27;</span>)<br>      .end()<br>      .use(<span class="hljs-string">&#x27;./build/md-loader/index.js&#x27;</span>)<br>      .loader(<span class="hljs-string">&#x27;./build/md-loader/index.js&#x27;</span>);<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这里主要修改了项目的入口，以及 md 文件的解析，这个在后面文档实现时会用到。</p>
+<h2 id="添加组件"><a href="#添加组件" class="headerlink" title="添加组件"></a>添加组件</h2><p>壳子搭好了，剩下的当然是写组件了，我们先简单的来一个 Button 组件吧。<br>首先新建一个目录，取名 button，然后在该目录下新建 src 目录和 index.js 文件</p>
+<h3 id="编写组件"><a href="#编写组件" class="headerlink" title="编写组件"></a>编写组件</h3><p>src 目录中新建 button.vue </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;button class&#x3D;&quot;ndc-button&quot; :class&#x3D;&quot;[&#39;ndc-button-&#39; + theme]&quot; :disabled&#x3D;&quot;disabled&quot; @click&#x3D;&quot;onClick&quot;&gt;<br>		&lt;i v-if&#x3D;&quot;icon&quot; class&#x3D;&quot;ndc-button-icon&quot; :class&#x3D;&quot;icon ? icon : &#39;&#39;&quot;&gt;&lt;&#x2F;i&gt;<br>		&lt;slot&gt;&lt;&#x2F;slot&gt;<br>	&lt;&#x2F;button&gt;<br>&lt;&#x2F;template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#39;NdcButton&#39;,<br>  props: &#123;<br>    disabled: &#123;<br>      type: Boolean,<br>      default: false<br>    &#125;,<br>    icon: &#123;<br>      type: String,<br>      default: &#39;&#39;<br>    &#125;,<br>    theme: &#123;<br>      default: &#39;default&#39;,<br>      validator(value) &#123;<br>        return [&#39;default&#39;, &#39;primary&#39;, &#39;active&#39;].includes(value);<br>      &#125;<br>    &#125;<br>  &#125;,<br>  methods: &#123;<br>    onClick(event) &#123;<br>      if (!this.disabled) &#123;<br>        this.$emit(&#39;click&#39;, event);<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;;<br>&lt;&#x2F;script&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="暴露组件"><a href="#暴露组件" class="headerlink" title="暴露组件"></a>暴露组件</h3><p>index.js 主要用来暴露组件，定义组件的 install 方法，后续按需引入的时候用得到。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> NdcButton <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./src/button.vue&#x27;</span>;<br><br>NdcButton.install = <span class="hljs-function">(<span class="hljs-params">Vue</span>) =&gt;</span> &#123;<br>  Vue.component(NdcButton.name, NdcButton);<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> NdcButton;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tips: 组件中一定要定义 name</p>
+</blockquote>
+<h3 id="暴露组件库"><a href="#暴露组件库" class="headerlink" title="暴露组件库"></a>暴露组件库</h3><p>上面描述的仅仅是单个组件的编写，而我们的目标是整个组件库，仅仅暴露组件还不够，我们在 packages 目录下新建一个 index.js 用来暴露整个组件库。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> Button <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./button&#x27;</span>;<br><br><span class="hljs-keyword">const</span> version = <span class="hljs-string">&#x27;0.2.6&#x27;</span>;<br><span class="hljs-keyword">const</span> components = [<br>  Button<br>];<br><br><span class="hljs-keyword">const</span> install = <span class="hljs-function"><span class="hljs-params">Vue</span> =&gt;</span> &#123;<br>  components.forEach(<span class="hljs-function"><span class="hljs-params">Component</span> =&gt;</span> &#123;<br>    Vue.use(Component);<br>  &#125;);<br>&#125;;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span> !== <span class="hljs-string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="hljs-built_in">window</span>.Vue) &#123;<br>  install(<span class="hljs-built_in">window</span>.Vue);<br>&#125;<br><br><span class="hljs-keyword">export</span> &#123;<br>  install,<br>  version,<br>  Button<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  install,<br>  version<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>每添加一个组件，我们就需要在该文件中暴露，很显然，这么重复的劳动不符合我们的追求，所以，这里我们可以自定义任务来处理。<br>在 build 目录下，我们新增一个 build-entry.js 文件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs-extra&#x27;</span>);<br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> uppercamelize = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;uppercamelcase&#x27;</span>);<br><br><span class="hljs-keyword">const</span> Components = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./get-components&#x27;</span>)();<br><span class="hljs-keyword">const</span> packageJson = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../package.json&#x27;</span>);<br><br><span class="hljs-keyword">const</span> version = process.env.VERSION || packageJson.version;<br><span class="hljs-keyword">const</span> tips = <span class="hljs-string">`/* eslint-disable */</span><br><span class="hljs-string">// This file is auto gererated by build/build-entry.js`</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildPackagesEntry</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> uninstallComponents = [<span class="hljs-string">&#x27;Message&#x27;</span>];<br><br>  <span class="hljs-keyword">const</span> importList = Components.map(<br>    name =&gt; <span class="hljs-string">`import <span class="hljs-subst">$&#123;uppercamelize(name)&#125;</span> from &#x27;./<span class="hljs-subst">$&#123;name&#125;</span>&#x27;`</span><br>  );<br><br>  <span class="hljs-keyword">const</span> exportList = Components.map(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;uppercamelize(name)&#125;</span>`</span>);<br><br>  <span class="hljs-keyword">const</span> installList = exportList.filter(<br>    name =&gt; !~uninstallComponents.indexOf(uppercamelize(name))<br>  );<br><br>  <span class="hljs-keyword">const</span> content = <span class="hljs-string">`<span class="hljs-subst">$&#123;tips&#125;</span></span><br><span class="hljs-string">    <span class="hljs-subst">$&#123;importList.join(<span class="hljs-string">&#x27;\n&#x27;</span>)&#125;</span></span><br><span class="hljs-string">    const version = &#x27;<span class="hljs-subst">$&#123;version&#125;</span>&#x27;</span><br><span class="hljs-string">    const components = [</span><br><span class="hljs-string">      <span class="hljs-subst">$&#123;installList.join(<span class="hljs-string">&#x27;,\n  &#x27;</span>)&#125;</span></span><br><span class="hljs-string">    ]</span><br><span class="hljs-string">    const install = Vue =&gt; &#123;</span><br><span class="hljs-string">      components.forEach(Component =&gt; &#123;</span><br><span class="hljs-string">        Vue.use(Component)</span><br><span class="hljs-string">      &#125;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">      Vue.prototype.$message = Message</span><br><span class="hljs-string">    &#125;;</span><br><span class="hljs-string">    /* istanbul ignore if */</span><br><span class="hljs-string">    if (typeof window !== &#x27;undefined&#x27; &amp;&amp; window.Vue) &#123;</span><br><span class="hljs-string">      install(window.Vue)</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">    export &#123;</span><br><span class="hljs-string">      install,</span><br><span class="hljs-string">      version,</span><br><span class="hljs-string">      <span class="hljs-subst">$&#123;exportList.join(<span class="hljs-string">&#x27;,\n  &#x27;</span>)&#125;</span></span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">    export default &#123;</span><br><span class="hljs-string">      install,</span><br><span class="hljs-string">      version</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">  `</span>;<br><br>  fs.writeFileSync(path.join(__dirname, <span class="hljs-string">&#x27;../packages/index.js&#x27;</span>), content);<br>&#125;<br><br>buildPackagesEntry();<br></code></pre></td></tr></table></figure>
+
+<p>然后在 package.json 中新增一条<code>&quot;build:entry&quot;: &quot;node build/build-entry.js &quot;</code>命令即可。</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>编写完组件后，当然是要编译成库，然后发布使用。这里，Vue Cli3 已经给我们提供了一个现成的库模式编译，具体命令如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot;lib&quot;</span>: <span class="hljs-string">&quot;vue-cli-service build --target lib --name ndc-custom-ui --dest lib packages/index.js&quot;</span><br></code></pre></td></tr></table></figure>
+<p>不清楚的可以看一下官网上<a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/build-targets.html">构建目标</a>的描述。</p>
+<p>到这里，我们算是搭建了基础的组件库框架，但这还远远不够，毕竟不能按需加载的组件库是没有灵魂的，下面，我们继续研究如何配置组件库的按需加载。</p>
+<h2 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h2><p>要说按需加载，用过 elementUI 的应该都知道他们自己开发的插件<code>babel-plugin-component</code>，既然有现成的插件，我们不用白不用。<br>用之前，我们需要了解这个插件的原理是啥，从插件的文档中就可以看出，该插件主要就是：</p>
+<p><code>import &#123; Button &#125; from &#39;components&#39;</code> 会被解析成同时引入<code>components/lib/button/index.js</code>和引入<code>components/lib/button/style.css</code>，这就是这个插件为我们带来的按需引入的功能。</p>
+<h3 id="打包单个组件"><a href="#打包单个组件" class="headerlink" title="打包单个组件"></a>打包单个组件</h3><p>既然知道了原理，那后面的事情就好办了，上面我们打包后的 lib 目录下只有 ndc-custom-ui.common.js, ndc-custom-ui.umd.js, ndc-custom-ui.umd.min.js 等文件，而要实现按需加载，必须将单个组件单独打包进来。<br>在 build 目录下新建 webpack.component.js 文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> ProgressBarPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;progress-bar-webpack-plugin&#x27;</span>);<br><span class="hljs-keyword">const</span> VueLoaderPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vue-loader/lib/plugin&#x27;</span>);<br><br><span class="hljs-keyword">const</span> Components = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./get-components&#x27;</span>)();<br><span class="hljs-keyword">const</span> entry = &#123;&#125;;<br>Components.forEach(<span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> &#123;<br>  entry[c] = <span class="hljs-string">`./packages/<span class="hljs-subst">$&#123;c&#125;</span>/index.js`</span>;<br>&#125;);<br><br><span class="hljs-keyword">const</span> webpackConfig = &#123;<br>  mode: <span class="hljs-string">&#x27;production&#x27;</span>,<br>  entry: entry,<br>  output: &#123;<br>    path: path.resolve(process.cwd(), <span class="hljs-string">&#x27;./lib&#x27;</span>),<br>    publicPath: <span class="hljs-string">&#x27;/dist/&#x27;</span>,<br>    filename: <span class="hljs-string">&#x27;[name].js&#x27;</span>,<br>    chunkFilename: <span class="hljs-string">&#x27;[id].js&#x27;</span>,<br>    libraryTarget: <span class="hljs-string">&#x27;umd&#x27;</span><br>  &#125;,<br>  resolve: &#123;<br>    extensions: [<span class="hljs-string">&#x27;.js&#x27;</span>, <span class="hljs-string">&#x27;.vue&#x27;</span>, <span class="hljs-string">&#x27;.json&#x27;</span>]<br>  &#125;,<br>  performance: &#123;<br>    hints: <span class="hljs-literal">false</span><br>  &#125;,<br>  stats: <span class="hljs-string">&#x27;none&#x27;</span>,<br>  optimization: &#123;<br>    minimize: <span class="hljs-literal">false</span><br>  &#125;,<br>  <span class="hljs-built_in">module</span>: &#123;<br>    rules: [&#123;<br>      test: <span class="hljs-regexp">/\.js$/</span>,<br>      loader: <span class="hljs-string">&#x27;babel-loader&#x27;</span>,<br>      exclude: <span class="hljs-regexp">/node_modules/</span><br>    &#125;, &#123;<br>      test: <span class="hljs-regexp">/\.vue$/</span>,<br>      loader: <span class="hljs-string">&#x27;vue-loader&#x27;</span><br>    &#125;]<br>  &#125;,<br>  plugins: [<br>    <span class="hljs-keyword">new</span> ProgressBarPlugin(),<br>    <span class="hljs-keyword">new</span> VueLoaderPlugin()<br>  ]<br>&#125;;<br><br><span class="hljs-built_in">module</span>.exports = webpackConfig;<br></code></pre></td></tr></table></figure>
+
+<p>package.json 中新增命令<code>webpack --config ./build/webpack.component.js</code>。</p>
+<h3 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h3><p>我们在 packages 目录下新建一个 theme-chalk 文件夹来放组件样式，里面样式文件与组件一一对应，至于为啥这么做，当然是为了借鉴 elementUI 啦。</p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>到此，组件库算是真的搭建起来了，接下来就是发布到 npm 上了。</p>
+<p>首先，修改一下我们的 package.json 文件，新增以下信息：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;ndc-custom-ui&quot;</span>,<br><span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,<br><span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;A Component Library for Vue.js.&quot;</span>,<br><span class="hljs-string">&quot;private&quot;</span>: <span class="hljs-literal">false</span>,<br><span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;lib/ndc-custom-ui.umd.js&quot;</span>,<br><span class="hljs-string">&quot;files&quot;</span>: [<br>  <span class="hljs-string">&quot;lib&quot;</span>,<br>  <span class="hljs-string">&quot;packages&quot;</span><br>],<br><span class="hljs-string">&quot;license&quot;</span>: <span class="hljs-string">&quot;MIT&quot;</span><br></code></pre></td></tr></table></figure>
+<p>然后，<code>npm login</code>登录 npm 账号，再执行 <code>npm publish</code>发布即可。</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>组件库搭建完成了，最后，我们的文档肯定是少不了的。<br>其实文档系统也没啥好说的，把握住一点就是 markdown 文件的解析。我们整个文件系统都是建立在 markdown 文件的解析基础上实现的，具体实现看 build 目录下的 md-loader。这里我基本上照搬了 elementui，再根据自己的理解略微的做了一些修改，然后实现文档发布的脚本。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-meta">#!/usr/bin/env node</span><br><span class="hljs-keyword">const</span> execSync = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).execSync;<br><span class="hljs-keyword">const</span> VERSION = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../package.json&#x27;</span>).version;<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);<br><span class="hljs-keyword">const</span> GIT_COMMIT = execSync(<span class="hljs-string">&#x27;git rev-parse --short HEAD&#x27;</span>).toString().replace(<span class="hljs-regexp">/\n/</span>, <span class="hljs-string">&#x27;&#x27;</span>);<br><br><span class="hljs-keyword">const</span> ghpages = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;gh-pages&#x27;</span>);<br>execSync(<span class="hljs-string">&#x27;npm run build:docs&#x27;</span>);<br><br><span class="hljs-comment">// 修改文档的域名为 ndc-ui.feminzai.com</span><br>fs.writeFile(<span class="hljs-string">&#x27;dist/CNAME&#x27;</span>, <span class="hljs-string">&#x27;ndc-ui.feminzai.com&#x27;</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span> (error) &#123;<br>    <span class="hljs-built_in">console</span>.log(error);<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>  &#125;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;CNAME 写入成功&#x27;</span>);<br>&#125;);<br><br>ghpages.publish(<span class="hljs-string">&#x27;dist&#x27;</span>, &#123;<br>  user: &#123;<br>    name: <span class="hljs-string">&#x27;minteliuwm&#x27;</span>,<br>    email: <span class="hljs-string">&#x27;minteliu.l@gmail.com&#x27;</span><br>  &#125;,<br>  repo: <span class="hljs-string">&#x27;https://github.com/minteliuwm/ndc-ui.git&#x27;</span>,<br>  message: <span class="hljs-string">`[deploy] <span class="hljs-subst">$&#123;GIT_COMMIT&#125;</span> - [release] <span class="hljs-subst">$&#123;VERSION&#125;</span>`</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>package.json 中新增命令<code>&quot;publish:docs&quot;: &quot;node build/publish-docs.js&quot;</code>即可。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，我们的整个组件库算是搭建完成了，站在巨人的肩膀上让我们节省了很多事情，但同样，我们也需要去理解其中的每一步，以及每个配置文件的作用，思考多了，就会沉淀下自己的一些想法，实践多了，就会有自己的一些东西，仅此而已。</p>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/vue/vue-custom-ui/index.html">https://www.feminzai.com/vue/vue-custom-ui/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6%E5%BA%93/" rel="tag">组件库</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/vue/vue-docker/"><i class="iconfont iconleft"></i>Docker 部署前端应用</a>
+  
+  
+    <a href="/vue/vue-component-params/">Vue 组件参数传递命名<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA"><span class="toc-text">项目搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">修改目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">修改配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%BB%84%E4%BB%B6"><span class="toc-text">添加组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E7%BB%84%E4%BB%B6"><span class="toc-text">编写组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E9%9C%B2%E7%BB%84%E4%BB%B6"><span class="toc-text">暴露组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E9%9C%B2%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="toc-text">暴露组件库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD"><span class="toc-text">按需加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%8D%95%E4%B8%AA%E7%BB%84%E4%BB%B6"><span class="toc-text">打包单个组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F"><span class="toc-text">样式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B8%83"><span class="toc-text">发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3"><span class="toc-text">文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

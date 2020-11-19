@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue 源码学习之事件机制 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", 前端, Vue, 源码, 事件机制, event"> 
+  
+  <meta name="description" content="写这篇文章的起因是因为今天组里的小伙伴问了我一个比较常..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">Vue 源码学习之事件机制</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic9.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Vue 源码学习之事件机制</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>September 20, 2019</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/vue/vue-code-event/"
+          class="leancloud" data-flag-title="Vue 源码学习之事件机制"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>8769</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>写这篇文章的起因是因为今天组里的小伙伴问了我一个比较常见的语法的原理，而我用了这么久的 vue，对该写法早已熟能生巧，但一谈到如何实现，突然愣住了，这玩意儿好像真没注意过，那么是什么问题呢？看下面代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;onClick&quot;</span>&gt;</span>测试<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;onClick($events, &#x27;测试&#x27;)&quot;</span>&gt;</span>测试<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>问：这两种写法区别在哪里？为什么可以用第二种写法？<br>答：没啥区别。</p>
+<p>开个玩笑，当我看到这个时候，本能的猜测，编译的时候，第二种写法做了一层函数的封装，为了弄清到底是不是这样的，带着问题，重温了 vue 相关的源码，也就是这篇文章后面要提到的 vue 事件机制。</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>我们知道，vue 在挂载实例前，会先对模板做编译，将模板解析成 AST，然后再将 AST 转换为 render 函数，整个过程如下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> createCompiler = createCompilerCreator(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseCompile</span> (<span class="hljs-params"></span></span><br><span class="hljs-function"><span class="hljs-params">  template: string,</span></span><br><span class="hljs-function"><span class="hljs-params">  options: CompilerOptions</span></span><br><span class="hljs-function"><span class="hljs-params"></span>): <span class="hljs-title">CompiledResult</span> </span>&#123;<br>  <span class="hljs-keyword">const</span> ast = parse(template.trim(), options)<br>  <span class="hljs-keyword">if</span> (options.optimize !== <span class="hljs-literal">false</span>) &#123;<br>    optimize(ast, options)<br>  &#125;<br>  <span class="hljs-keyword">const</span> code = generate(ast, options)<br>  <span class="hljs-keyword">return</span> &#123;<br>    ast,<br>    render: code.render,<br>    staticRenderFns: code.staticRenderFns<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+<p>模板解析的过程不是这篇文章的重点，在这里我们就不赘述了，我们主要来看一下 generate 函数做了啥。</p>
+<h2 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generate</span> (<span class="hljs-params"></span></span><br><span class="hljs-function"><span class="hljs-params">  ast: ASTElement | <span class="hljs-keyword">void</span>,</span></span><br><span class="hljs-function"><span class="hljs-params">  options: CompilerOptions</span></span><br><span class="hljs-function"><span class="hljs-params"></span>): <span class="hljs-title">CodegenResult</span> </span>&#123;<br>  <span class="hljs-keyword">const</span> state = <span class="hljs-keyword">new</span>  (options)<br>  <span class="hljs-keyword">const</span> code = ast ? genElement(ast, state) : <span class="hljs-string">&#x27;_c(&quot;div&quot;)&#x27;</span><br>  <span class="hljs-keyword">return</span> &#123;<br>    render: <span class="hljs-string">`with(this)&#123;return <span class="hljs-subst">$&#123;code&#125;</span>&#125;`</span>,<br>    staticRenderFns: state.staticRenderFns<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>generate 函数简单明了，其核心的处理就在于 getElement 中，而对于普通模板处理则在 genData 中，我们来看一下 genData 的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">genData</span> (<span class="hljs-params">el: ASTElement, state: CodegenState</span>): <span class="hljs-title">string</span> </span>&#123;<br>  <span class="hljs-keyword">let</span> data = <span class="hljs-string">&#x27;&#123;&#x27;</span><br><br>  <span class="hljs-comment">// directives first.</span><br>  <span class="hljs-comment">// directives may mutate the el&#x27;s other properties before they are generated.</span><br>  <span class="hljs-keyword">const</span> dirs = genDirectives(el, state)<br>  <span class="hljs-keyword">if</span> (dirs) data += dirs + <span class="hljs-string">&#x27;,&#x27;</span><br><br>  <span class="hljs-comment">// key</span><br>  <span class="hljs-keyword">if</span> (el.key) &#123;<br>    data += <span class="hljs-string">`key:<span class="hljs-subst">$&#123;el.key&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-comment">// ref</span><br>  <span class="hljs-keyword">if</span> (el.ref) &#123;<br>    data += <span class="hljs-string">`ref:<span class="hljs-subst">$&#123;el.ref&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-keyword">if</span> (el.refInFor) &#123;<br>    data += <span class="hljs-string">`refInFor:true,`</span><br>  &#125;<br>  <span class="hljs-comment">// pre</span><br>  <span class="hljs-keyword">if</span> (el.pre) &#123;<br>    data += <span class="hljs-string">`pre:true,`</span><br>  &#125;<br>  <span class="hljs-comment">// record original tag name for components using &quot;is&quot; attribute</span><br>  <span class="hljs-keyword">if</span> (el.component) &#123;<br>    data += <span class="hljs-string">`tag:&quot;<span class="hljs-subst">$&#123;el.tag&#125;</span>&quot;,`</span><br>  &#125;<br>  <span class="hljs-comment">// module data generation functions</span><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; state.dataGenFns.length; i++) &#123;<br>    data += state.dataGenFns[i](el)<br>  &#125;<br>  <span class="hljs-comment">// attributes</span><br>  <span class="hljs-keyword">if</span> (el.attrs) &#123;<br>    data += <span class="hljs-string">`attrs:<span class="hljs-subst">$&#123;genProps(el.attrs)&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-comment">// DOM props</span><br>  <span class="hljs-keyword">if</span> (el.props) &#123;<br>    data += <span class="hljs-string">`domProps:<span class="hljs-subst">$&#123;genProps(el.props)&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-comment">// event handlers</span><br>  <span class="hljs-keyword">if</span> (el.events) &#123;<br>    data += <span class="hljs-string">`<span class="hljs-subst">$&#123;genHandlers(el.events, <span class="hljs-literal">false</span>)&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-keyword">if</span> (el.nativeEvents) &#123;<br>    data += <span class="hljs-string">`<span class="hljs-subst">$&#123;genHandlers(el.nativeEvents, <span class="hljs-literal">true</span>)&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-comment">// slot target</span><br>  <span class="hljs-comment">// only for non-scoped slots</span><br>  <span class="hljs-keyword">if</span> (el.slotTarget &amp;&amp; !el.slotScope) &#123;<br>    data += <span class="hljs-string">`slot:<span class="hljs-subst">$&#123;el.slotTarget&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-comment">// scoped slots</span><br>  <span class="hljs-keyword">if</span> (el.scopedSlots) &#123;<br>    data += <span class="hljs-string">`<span class="hljs-subst">$&#123;genScopedSlots(el, el.scopedSlots, state)&#125;</span>,`</span><br>  &#125;<br>  <span class="hljs-comment">// component v-model</span><br>  <span class="hljs-keyword">if</span> (el.model) &#123;<br>    data += <span class="hljs-string">`model:&#123;value:<span class="hljs-subst">$&#123;</span></span><br><span class="hljs-string"><span class="hljs-subst">      el.model.value</span></span><br><span class="hljs-string"><span class="hljs-subst">    &#125;</span>,callback:<span class="hljs-subst">$&#123;</span></span><br><span class="hljs-string"><span class="hljs-subst">      el.model.callback</span></span><br><span class="hljs-string"><span class="hljs-subst">    &#125;</span>,expression:<span class="hljs-subst">$&#123;</span></span><br><span class="hljs-string"><span class="hljs-subst">      el.model.expression</span></span><br><span class="hljs-string"><span class="hljs-subst">    &#125;</span>&#125;,`</span><br>  &#125;<br>  <span class="hljs-comment">// inline-template</span><br>  <span class="hljs-keyword">if</span> (el.inlineTemplate) &#123;<br>    <span class="hljs-keyword">const</span> inlineTemplate = genInlineTemplate(el, state)<br>    <span class="hljs-keyword">if</span> (inlineTemplate) &#123;<br>      data += <span class="hljs-string">`<span class="hljs-subst">$&#123;inlineTemplate&#125;</span>,`</span><br>    &#125;<br>  &#125;<br>  data = data.replace(<span class="hljs-regexp">/,$/</span>, <span class="hljs-string">&#x27;&#x27;</span>) + <span class="hljs-string">&#x27;&#125;&#x27;</span><br>  <span class="hljs-comment">// v-bind dynamic argument wrap</span><br>  <span class="hljs-comment">// v-bind with dynamic arguments must be applied using the same v-bind object</span><br>  <span class="hljs-comment">// merge helper so that class/style/mustUseProp attrs are handled correctly.</span><br>  <span class="hljs-keyword">if</span> (el.dynamicAttrs) &#123;<br>    data = <span class="hljs-string">`_b(<span class="hljs-subst">$&#123;data&#125;</span>,&quot;<span class="hljs-subst">$&#123;el.tag&#125;</span>&quot;,<span class="hljs-subst">$&#123;genProps(el.dynamicAttrs)&#125;</span>)`</span><br>  &#125;<br>  <span class="hljs-comment">// v-bind data wrap</span><br>  <span class="hljs-keyword">if</span> (el.wrapData) &#123;<br>    data = el.wrapData(data)<br>  &#125;<br>  <span class="hljs-comment">// v-on data wrap</span><br>  <span class="hljs-keyword">if</span> (el.wrapListeners) &#123;<br>    data = el.wrapListeners(data)<br>  &#125;<br>  <span class="hljs-keyword">return</span> data<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从代码中不难看出如果有原生事件或事件的时候，会去调用 genHandlers。</p>
+<h2 id="genHandlers"><a href="#genHandlers" class="headerlink" title="genHandlers"></a>genHandlers</h2><p>genHandlers 函数会遍历 AST 树，拿到 event 对象属性，并根据属性上的事件对象拼接成字符串。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">genHandlers</span> (<span class="hljs-params"></span></span><br><span class="hljs-function"><span class="hljs-params">  events: ASTElementHandlers,</span></span><br><span class="hljs-function"><span class="hljs-params">  isNative: boolean</span></span><br><span class="hljs-function"><span class="hljs-params"></span>): <span class="hljs-title">string</span> </span>&#123;<br>  <span class="hljs-keyword">const</span> prefix = isNative ? <span class="hljs-string">&#x27;nativeOn:&#x27;</span> : <span class="hljs-string">&#x27;on:&#x27;</span><br>  <span class="hljs-keyword">let</span> staticHandlers = <span class="hljs-string">``</span><br>  <span class="hljs-keyword">let</span> dynamicHandlers = <span class="hljs-string">``</span><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> name <span class="hljs-keyword">in</span> events) &#123;<br>    <span class="hljs-keyword">const</span> handlerCode = genHandler(events[name])<br>    <span class="hljs-keyword">if</span> (events[name] &amp;&amp; events[name].dynamic) &#123;<br>      dynamicHandlers += <span class="hljs-string">`<span class="hljs-subst">$&#123;name&#125;</span>,<span class="hljs-subst">$&#123;handlerCode&#125;</span>,`</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      staticHandlers += <span class="hljs-string">`&quot;<span class="hljs-subst">$&#123;name&#125;</span>&quot;:<span class="hljs-subst">$&#123;handlerCode&#125;</span>,`</span><br>    &#125;<br>  &#125;<br>  staticHandlers = <span class="hljs-string">`&#123;<span class="hljs-subst">$&#123;staticHandlers.slice(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>)&#125;</span>&#125;`</span><br>  <span class="hljs-keyword">if</span> (dynamicHandlers) &#123;<br>    <span class="hljs-keyword">return</span> prefix + <span class="hljs-string">`_d(<span class="hljs-subst">$&#123;staticHandlers&#125;</span>,[<span class="hljs-subst">$&#123;dynamicHandlers.slice(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>)&#125;</span>])`</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> prefix + staticHandlers<br>  &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">genHandler</span> (<span class="hljs-params">handler: ASTElementHandler | <span class="hljs-built_in">Array</span>&lt;ASTElementHandler&gt;</span>): <span class="hljs-title">string</span> </span>&#123;<br>  <span class="hljs-keyword">if</span> (!handler) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;function()&#123;&#125;&#x27;</span><br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(handler)) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`[<span class="hljs-subst">$&#123;handler.map(handler =&gt; genHandler(handler)).join(<span class="hljs-string">&#x27;,&#x27;</span>)&#125;</span>]`</span><br>  &#125;<br><br>  <span class="hljs-keyword">const</span> isMethodPath = simplePathRE.test(handler.value)<br>  <span class="hljs-keyword">const</span> isFunctionExpression = fnExpRE.test(handler.value)<br>  <span class="hljs-keyword">const</span> isFunctionInvocation = simplePathRE.test(handler.value.replace(fnInvokeRE, <span class="hljs-string">&#x27;&#x27;</span>))<br><br>  <span class="hljs-keyword">if</span> (!handler.modifiers) &#123;<br>    <span class="hljs-keyword">if</span> (isMethodPath || isFunctionExpression) &#123;<br>      <span class="hljs-keyword">return</span> handler.value<br>    &#125;<br>    <span class="hljs-comment">/* istanbul ignore if */</span><br>    <span class="hljs-keyword">if</span> (__WEEX__ &amp;&amp; handler.params) &#123;<br>      <span class="hljs-keyword">return</span> genWeexHandler(handler.params, handler.value)<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`function($event)&#123;<span class="hljs-subst">$&#123;</span></span><br><span class="hljs-string"><span class="hljs-subst">      isFunctionInvocation ? <span class="hljs-string">`return <span class="hljs-subst">$&#123;handler.value&#125;</span>`</span> : handler.value</span></span><br><span class="hljs-string"><span class="hljs-subst">    &#125;</span>&#125;`</span> <span class="hljs-comment">// inline statement</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">let</span> code = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">let</span> genModifierCode = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">const</span> keys = []<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> handler.modifiers) &#123;<br>      <span class="hljs-keyword">if</span> (modifierCode[key]) &#123;<br>        genModifierCode += modifierCode[key]<br>        <span class="hljs-comment">// left/right</span><br>        <span class="hljs-keyword">if</span> (keyCodes[key]) &#123;<br>          keys.push(key)<br>        &#125;<br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key === <span class="hljs-string">&#x27;exact&#x27;</span>) &#123;<br>        <span class="hljs-keyword">const</span> modifiers: ASTModifiers = (handler.modifiers: any)<br>        genModifierCode += genGuard(<br>          [<span class="hljs-string">&#x27;ctrl&#x27;</span>, <span class="hljs-string">&#x27;shift&#x27;</span>, <span class="hljs-string">&#x27;alt&#x27;</span>, <span class="hljs-string">&#x27;meta&#x27;</span>]<br>            .filter(<span class="hljs-function"><span class="hljs-params">keyModifier</span> =&gt;</span> !modifiers[keyModifier])<br>            .map(<span class="hljs-function"><span class="hljs-params">keyModifier</span> =&gt;</span> <span class="hljs-string">`$event.<span class="hljs-subst">$&#123;keyModifier&#125;</span>Key`</span>)<br>            .join(<span class="hljs-string">&#x27;||&#x27;</span>)<br>        )<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        keys.push(key)<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (keys.length) &#123;<br>      code += genKeyFilter(keys)<br>    &#125;<br>    <span class="hljs-comment">// Make sure modifiers like prevent and stop get executed after key filtering</span><br>    <span class="hljs-keyword">if</span> (genModifierCode) &#123;<br>      code += genModifierCode<br>    &#125;<br>    <span class="hljs-keyword">const</span> handlerCode = isMethodPath<br>      ? <span class="hljs-string">`return <span class="hljs-subst">$&#123;handler.value&#125;</span>($event)`</span><br>      : isFunctionExpression<br>        ? <span class="hljs-string">`return (<span class="hljs-subst">$&#123;handler.value&#125;</span>)($event)`</span><br>        : isFunctionInvocation<br>          ? <span class="hljs-string">`return <span class="hljs-subst">$&#123;handler.value&#125;</span>`</span><br>          : handler.value<br>    <span class="hljs-comment">/* istanbul ignore if */</span><br>    <span class="hljs-keyword">if</span> (__WEEX__ &amp;&amp; handler.params) &#123;<br>      <span class="hljs-keyword">return</span> genWeexHandler(handler.params, code + handlerCode)<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`function($event)&#123;<span class="hljs-subst">$&#123;code&#125;</span><span class="hljs-subst">$&#123;handlerCode&#125;</span>&#125;`</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>经过以上转换后，最终拼接到 render 函数中的字符串如下，分别对应文章开篇的写法，也不难看出，第二种写法确实是封装了一层函数。</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scilab"><span class="hljs-string">&quot;_c(&#x27;</span>div&#x27;,&#123;on:&#123;<span class="hljs-string">&quot;click&quot;</span>:onClick&#125;&#125;,[_v(<span class="hljs-string">&quot;测试&quot;</span>)])<span class="hljs-string">&quot;</span><br><span class="hljs-string">&quot;</span>_c(<span class="hljs-string">&#x27;div&#x27;</span>,&#123;on:&#123;<span class="hljs-string">&quot;click&quot;</span>:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($event)</span>&#123;<span class="hljs-title">return</span> <span class="hljs-title">onClick</span><span class="hljs-params">(&#x27;测试&#x27;, arguments[0])</span>&#125;&#125;&#125;,[<span class="hljs-title">_v</span><span class="hljs-params">(&quot;测试&quot;)</span>])&quot;</span><br><span class="hljs-string">&quot;_c(&#x27;</span>div&#x27;,&#123;nativeOn:&#123;<span class="hljs-string">&quot;click&quot;</span>:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($event)</span>&#123;<span class="hljs-title">return</span> <span class="hljs-title">onClick</span><span class="hljs-params">(&#x27;测试&#x27;, arguments[0])</span>&#125;&#125;&#125;,[<span class="hljs-title">_v</span><span class="hljs-params">(&quot;测试&quot;)</span>])&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>由于不知道怎么组织语言，加上文字描述不出自己的心路历程，所以最后产出的这篇文章通篇都是代码，算是相当偷懒了，尴尬。虽然文章很偷懒，但是还是要象征性的总结一下：该篇文章旨在了解 vue 事件绑定时做了些什么事情，另外涉及到一些修饰符，以及自定义事件等，大家可以自行看代码了学习。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>最后想跟大家分享一点 vue 源码学习的经验，那就是调试。光看代码，很多逻辑都只能靠猜，靠分析，而真正想要理解整个过程，最好的方式还是调试，一行一行代码的跟下去可以让我们更加熟悉整个过程。<br>如何调试 vue 源码呢？很简单。先到 github 上把 vue 源码拉一份到本地，然后 <code>npm install</code>，再然后 <code>npm run dev</code>。<br>最后，找到 examples 目录，随便找一个示例 html，把里面的<code>&lt;script src=&quot;../../dist/vue.min.js&quot;&gt;&lt;/script&gt;</code>修改成<code>&lt;script src=&quot;../../dist/vue.js&quot;&gt;&lt;/script&gt;</code>，在浏览器上打开该 html 文件即可。</p>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/vue/vue-code-event/index.html">https://www.feminzai.com/vue/vue-code-event/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/vue/vue-custom-cli/"><i class="iconfont iconleft"></i>如何搭建一个简单的脚手架</a>
+  
+  
+    <a href="/vue/vue-code-diff/">Vue 源码学习之 diff 算法<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#generate"><span class="toc-text">generate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#genHandlers"><span class="toc-text">genHandlers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text">写在最后</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

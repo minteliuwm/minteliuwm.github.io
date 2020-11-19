@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PL/SQL 基本语法 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", Oracle, 数据库, PL/SQL, Sql, 语法"> 
+  
+  <meta name="description" content="PL/SQL 是 Oracle 对标准数据库语言 SQ..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">PL/SQL 基本语法</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic2.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">PL/SQL 基本语法</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>April 06, 2017</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/oracle/oracle-plsql-grammar/"
+          class="leancloud" data-flag-title="PL/SQL 基本语法"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3650</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="PL-SQL介绍"><a href="#PL-SQL介绍" class="headerlink" title="PL/SQL介绍"></a>PL/SQL介绍</h2><p>PL/SQL 是 Oracle 对标准数据库语言 SQL 的过程化扩充，它将数据库技术和过程化程序设计语言联系起来，是一种应用开发语言，可使用循环，分支处理数据，将SQL的数据操纵功能与过程化语言数据处理功能结合起来。PL/SQL 的使用，使 SQL 成为一种高级程序设计语言，支持高级语言的块操作，条件判断，循环语句，嵌套等，与数据库核心的数据类型集成，使 SQL 的程序设计效率更高。</p>
+<h2 id="PL-SQL-作用"><a href="#PL-SQL-作用" class="headerlink" title="PL/SQL 作用"></a>PL/SQL 作用</h2><ol>
+<li>能够使一组 SQL 语句的功能更具模块化程序特点</li>
+<li>采用了过程性语言控制程序的结构</li>
+<li>可以对程序中的错误进行自动处理，使程序能够在遇到错误的时候不会被中断</li>
+<li>具有较好的可移植性，可以移植到另一个 Oracle 数据库中</li>
+<li>集成在数据库中，调用更快</li>
+<li>减少了网络的交互，有助于提高程序性能</li>
+</ol>
+<h2 id="PL-SQL-程序的基本结构"><a href="#PL-SQL-程序的基本结构" class="headerlink" title="PL/SQL 程序的基本结构"></a>PL/SQL 程序的基本结构</h2><p>PL/SQL 块由四个基本部分组成：<strong>块头、声明单元、执行单元、异常处理单元</strong></p>
+<ol>
+<li>块头：只有命名块才会有这个单元。块头确定命名块获程序的调用方式，这个单元是可选的</li>
+<li>声明单元：定义变量、游标、以及可以被后面执行单元或异常单元引用的子块单元。这个单元也是可选的</li>
+<li>执行单元： 这一部分包含要执行的业务逻辑，这个单元是必须的</li>
+<li>异常处理单元：处理抛出的异常，这个单元式可选的</li>
+</ol>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql">PROCEDURE get_happy (ename_in IN VARCHAR2)    <span class="hljs-comment">-- 块头</span><br>IS<br>    l_hiredate    DATE;    <span class="hljs-comment">-- 声明单元</span><br><span class="hljs-keyword">BEGIN</span><br>    l_hiredate := <span class="hljs-keyword">SYSDATE</span> - <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> employee (emp_name, hiredate) <span class="hljs-keyword">VALUES</span> (ename_in, l_hiredate);    <span class="hljs-comment">-- 执行单元</span><br>EXCEPTION<br>	WHEN DUP_VAL_IN_INDEX THEN    <span class="hljs-comment">-- 异常处理单元</span><br>	DBMS_OUTPUT.PUT_LINE(&#x27;Cannot insert.&#x27;);<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="匿名块"><a href="#匿名块" class="headerlink" title="匿名块"></a>匿名块</h3><p>匿名块没有一个可以引用的句柄，因此不能被其他块调用。相反匿名块可以调用其他块。匿名块直接以 DECLARE 或 BEGIN 开始<br>语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql">[<span class="hljs-keyword">DECLARE</span><br>    . . . 声明语句 . . . ]<br><span class="hljs-keyword">BEGIN</span><br>    . . .  一个或多个执行语句. . .<br>[<span class="hljs-keyword">EXCEPTION</span><br>    . . . 异常处理语句]<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span><br>    DBMS_OUTPUT.PUT_LINE(<span class="hljs-string">&#x27;Hello World&#x27;</span>);<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="命名块"><a href="#命名块" class="headerlink" title="命名块"></a>命名块</h3><p>命名块和匿名块最大区别在于，命名块有头部信息<br>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql">PROCEDURE hello<br>IS<br>    v_str    VARCHAR2(100);<br><span class="hljs-keyword">BEGIN</span><br>    v_str := <span class="hljs-string">&#x27;Hello World&#x27;</span>;<br>    DBMS_OUTPUT.PUT_LINE(v_str );<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="嵌套块"><a href="#嵌套块" class="headerlink" title="嵌套块"></a>嵌套块</h3><p>PL/SQL 允许块中再嵌套块。被嵌套的块还有其他的叫法比如闭包块、子块或者 sub-block<br>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql">PROCEDURE hello<br>IS<br>    v_str    VARCHAR2(100);<br><span class="hljs-keyword">BEGIN</span><br>    v_str := <span class="hljs-string">&#x27;Hello World&#x27;</span>;<br>     <br>    <span class="hljs-comment">/* 嵌套模块开始  */</span><br>    <span class="hljs-keyword">DECLARE</span><br>        v_str2<br>    <span class="hljs-keyword">BEGIN</span><br>        v_str2 := v_str || <span class="hljs-string">&#x27; inner block&#x27;</span>;<br>        DBMS_OUTPUT.PUT_LINE(v_str2);<br>    <span class="hljs-keyword">END</span>;<br>    <span class="hljs-comment">/* 嵌套模块结束 */</span><br>    DBMS_OUTPUT.PUT_LINE(v_str );<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="PL-SQL-的基本规则"><a href="#PL-SQL-的基本规则" class="headerlink" title="PL/SQL 的基本规则"></a>PL/SQL 的基本规则</h2><ol>
+<li>标识符不区分大小写，所有的名称在存储时自动改成大写</li>
+<li>标识符只允许字母、数字、下划线，并且以字母开头</li>
+<li>不能使用保留字，与保留字同名必须使用双引号括起来</li>
+<li>END 后需要使用分号结束</li>
+<li>字符类型和日期类型需要使用单引号括起来</li>
+</ol>
+<p><strong>建议的写作规范：</strong></p>
+<ol>
+<li>命名应以“_”的连接方式，而不是用大小写混合的方式，如：p_id（表示名字为 id，”p” 表示它是一个参数）</li>
+<li>变量前最好加上前缀，以表示该变量的数据类型、作用范围等</li>
+<li>每个变量都应加上注释</li>
+<li>建议用3个半角空格替代TAB健进行缩进</li>
+<li>逗号后面以及操作符前后都应加空格</li>
+</ol>
+<h2 id="PL-SQL-注释"><a href="#PL-SQL-注释" class="headerlink" title="PL/SQL 注释"></a>PL/SQL 注释</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 单行注释</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * 多行注释</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="PL-SQL-变量声明"><a href="#PL-SQL-变量声明" class="headerlink" title="PL/SQL 变量声明"></a>PL/SQL 变量声明</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">variable_name datatype [:= expression ];<br></code></pre></td></tr></table></figure>
+<p>###直接声明变量，不赋值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">s_id number;<br></code></pre></td></tr></table></figure>
+<h3 id="声明变量并赋值"><a href="#声明变量并赋值" class="headerlink" title="声明变量并赋值"></a>声明变量并赋值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">s_id number := 1;<br></code></pre></td></tr></table></figure>
+
+<h2 id="PL-SQL-IF-条件控制语句"><a href="#PL-SQL-IF-条件控制语句" class="headerlink" title="PL/SQL IF 条件控制语句"></a>PL/SQL IF 条件控制语句</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql">if condition1 then<br>　　statements1;<br>elsif condition2 then<br>　　statements2;<br>else<br>	statements3;<br><span class="hljs-keyword">end</span> <span class="hljs-keyword">if</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="PL-SQL-CASE-控制语句"><a href="#PL-SQL-CASE-控制语句" class="headerlink" title="PL/SQL CASE 控制语句"></a>PL/SQL CASE 控制语句</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql">case s_id<br>when value1 then <br>	statements1;<br>when value2 then<br>	statements2;<br><span class="hljs-keyword">end</span>;<br></code></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql">case<br>when exp1 then <br>	statements1;<br>when exp2 then<br>	statements2;<br><span class="hljs-keyword">end</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="PL-SQL-循环语句"><a href="#PL-SQL-循环语句" class="headerlink" title="PL/SQL 循环语句"></a>PL/SQL 循环语句</h2><h3 id="简单循环-LOOP"><a href="#简单循环-LOOP" class="headerlink" title="简单循环 LOOP"></a>简单循环 LOOP</h3><p>简单循环以LOOP开头、END LOOP结尾，以EXIT WHEN指定退出条件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DECLARE</span><br>	i <span class="hljs-built_in">NUMBER</span> := <span class="hljs-number">1</span>;<br><span class="hljs-keyword">BEGIN</span><br>	<span class="hljs-keyword">LOOP</span><br>		i := i + <span class="hljs-number">1</span>;<br>		dbms_output.put_line(i);<br>		EXIT WHEN i = 100;<br>	<span class="hljs-keyword">END</span> <span class="hljs-keyword">LOOP</span>;<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="FOR-循环"><a href="#FOR-循环" class="headerlink" title="FOR 循环"></a>FOR 循环</h3><p>FOR 循环有两种形式，<strong>数值型</strong>和<strong>游标型</strong></p>
+<h4 id="数值型-FOR-循环"><a href="#数值型-FOR-循环" class="headerlink" title="数值型 FOR 循环"></a>数值型 FOR 循环</h4><p>数值型 FOR 循环，用于替代数值用的变量（x）无需在块声明中进行声明，必须指定数值起点值和终点值，起点值和终点值之间用空格+..+空格隔开</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DECLARE</span><br>	i <span class="hljs-built_in">NUMBER</span> := <span class="hljs-number">1</span>;<br><span class="hljs-keyword">BEGIN</span><br>	<span class="hljs-keyword">FOR</span> x <span class="hljs-keyword">IN</span> i .. <span class="hljs-number">100</span><br>	<span class="hljs-keyword">LOOP</span><br>		dbms_output.put_line(x);<br>	<span class="hljs-keyword">END</span> <span class="hljs-keyword">LOOP</span>;<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="游标型-FOR-循环"><a href="#游标型-FOR-循环" class="headerlink" title="游标型 FOR 循环"></a>游标型 FOR 循环</h4><p>游标型 FOR 循环用于对一个查询的结果进行处理，用于替代查询结果中每一行记录的变量（rec）无需在块声明中进行声明，可通过”变量名.字段名”引用查询结果中的字段</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span><br>	<span class="hljs-keyword">FOR</span> rec <span class="hljs-keyword">IN</span> (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> hr.parents)<br>	<span class="hljs-keyword">LOOP</span><br>	dbms_output.put_line(rec.person_id);<br>	<span class="hljs-keyword">END</span> <span class="hljs-keyword">LOOP</span>;<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="WHILE循环"><a href="#WHILE循环" class="headerlink" title="WHILE循环"></a>WHILE循环</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DECLARE</span><br>	i <span class="hljs-built_in">NUMBER</span> := <span class="hljs-number">1</span>;<br><span class="hljs-keyword">BEGIN</span><br>	<span class="hljs-keyword">WHILE</span> i &lt;= <span class="hljs-number">100</span><br>	<span class="hljs-keyword">LOOP</span><br>		dbms_output.put_line(i);<br>		i := i + 1;<br>	<span class="hljs-keyword">END</span> <span class="hljs-keyword">LOOP</span>;<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="CONTINUE与EXIT"><a href="#CONTINUE与EXIT" class="headerlink" title="CONTINUE与EXIT"></a>CONTINUE与EXIT</h3><h4 id="CONTINUE"><a href="#CONTINUE" class="headerlink" title="CONTINUE"></a>CONTINUE</h4><p>CONTINUE用于跳出循环的本次循环的判断，继续下一次循环的判断</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span><br>	<span class="hljs-keyword">FOR</span> i <span class="hljs-keyword">IN</span> <span class="hljs-number">1</span> .. <span class="hljs-number">100</span><br>	<span class="hljs-keyword">LOOP</span><br>		<span class="hljs-keyword">IF</span> i = <span class="hljs-number">10</span> <span class="hljs-keyword">THEN</span><br>			CONTINUE;<br>		ELSE<br>			dbms_output.put_line(i);<br>		<span class="hljs-keyword">END</span> <span class="hljs-keyword">IF</span>;<br>	<span class="hljs-keyword">END</span> <span class="hljs-keyword">LOOP</span>;<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+<p>输出结果为1-9及11-100，当循环进行到i=10时，会跳过本次循环，继续i=11的循环</p>
+<h4 id="EXIT"><a href="#EXIT" class="headerlink" title="EXIT"></a>EXIT</h4><p>EXIT用于退出整个循环</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span><br>	<span class="hljs-keyword">FOR</span> i <span class="hljs-keyword">IN</span> <span class="hljs-number">1</span> .. <span class="hljs-number">100</span><br>	<span class="hljs-keyword">LOOP</span><br>		<span class="hljs-keyword">IF</span> i = <span class="hljs-number">10</span> <span class="hljs-keyword">THEN</span><br>			<span class="hljs-keyword">EXIT</span>;<br>		ELSE<br>			dbms_output.put_line(i);<br>		<span class="hljs-keyword">END</span> <span class="hljs-keyword">IF</span>;<br>	<span class="hljs-keyword">END</span> <span class="hljs-keyword">LOOP</span>;<br><span class="hljs-keyword">END</span>;<br></code></pre></td></tr></table></figure>
+<p>输出结果为1-9，这是因为当循环进行到i=10时，exit退出了整个循环，块的执行就结束了</p>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/oracle/oracle-plsql-grammar/index.html">https://www.feminzai.com/oracle/oracle-plsql-grammar/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/oracle/oracle-store-procedure/"><i class="iconfont iconleft"></i>PL/SQL 存储过程学习</a>
+  
+  
+    <a href="/oracle/oracle-insert/">Oracle 使用一条 insert 语句完成多表插入<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL%E4%BB%8B%E7%BB%8D"><span class="toc-text">PL&#x2F;SQL介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-%E4%BD%9C%E7%94%A8"><span class="toc-text">PL&#x2F;SQL 作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-text">PL&#x2F;SQL 程序的基本结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%9D%97"><span class="toc-text">匿名块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E5%9D%97"><span class="toc-text">命名块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97%E5%9D%97"><span class="toc-text">嵌套块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A7%84%E5%88%99"><span class="toc-text">PL&#x2F;SQL 的基本规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-%E6%B3%A8%E9%87%8A"><span class="toc-text">PL&#x2F;SQL 注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">PL&#x2F;SQL 变量声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F%E5%B9%B6%E8%B5%8B%E5%80%BC"><span class="toc-text">声明变量并赋值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-IF-%E6%9D%A1%E4%BB%B6%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="toc-text">PL&#x2F;SQL IF 条件控制语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-CASE-%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="toc-text">PL&#x2F;SQL CASE 控制语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL-SQL-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-text">PL&#x2F;SQL 循环语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%BE%AA%E7%8E%AF-LOOP"><span class="toc-text">简单循环 LOOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FOR-%E5%BE%AA%E7%8E%AF"><span class="toc-text">FOR 循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WHILE%E5%BE%AA%E7%8E%AF"><span class="toc-text">WHILE循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CONTINUE%E4%B8%8EEXIT"><span class="toc-text">CONTINUE与EXIT</span></a></li></ol></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

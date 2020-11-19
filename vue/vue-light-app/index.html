@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>如何打造更快更轻的 Vue 应用 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", Vue, 前端, router-view, history, errorHandLer, errorCaptured, 性能, 路由, 懒加载"> 
+  
+  <meta name="description" content="本文主要针对自己最近项目中遇到的一些问题，并参照网上的..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">如何打造更快更轻的 Vue 应用</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic3.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">如何打造更快更轻的 Vue 应用</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>July 05, 2019</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/vue/vue-light-app/"
+          class="leancloud" data-flag-title="如何打造更快更轻的 Vue 应用"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1960</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <blockquote>
+<p>本文主要针对自己最近项目中遇到的一些问题，并参照网上的一些文章，整理了部分 Vue 性能优化上的点。</p>
+</blockquote>
+<h2 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h2><h3 id="v-show-和-v-if-的使用"><a href="#v-show-和-v-if-的使用" class="headerlink" title="v-show 和 v-if 的使用"></a>v-show 和 v-if 的使用</h3><p>使用了<code>v-if</code>的时候，如果值为false，那么页面将不会有这个 html 标签生成，而<code>v-show</code>则不管值为 true 还是 false，html 元素都会存在，只是 CSS 中的 display 显示或隐藏， 因此需要频繁切换的用 v-show。</p>
+<h3 id="Object-freeze"><a href="#Object-freeze" class="headerlink" title="Object.freeze()"></a>Object.freeze()</h3><p>Object.freeze() 方法可以冻结一个对象。一个被冻结的对象再也不能被修改，冻结了一个对象则不能向这个对象添加新的属性，不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。此外，冻结一个对象后该对象的原型也不能被修改。而在 vue 中，对于 data 或 vuex 里使用 freeze 冻结了的对象，vue 不会做 getter 和 setter 的转换，因此如果你有一个巨大的数组或者 Object，并且确信数据不会修改，使用 Object.freeze() 可以让性能大幅提升。</p>
+<h3 id="谨慎使用-deep-watch"><a href="#谨慎使用-deep-watch" class="headerlink" title="谨慎使用 deep watch"></a>谨慎使用 deep watch</h3><p>根据本人血与泪的教训，当你对一个巨大的 Object 或者数组使用 deep watch 时，性能的开销是你无法想象的痛。</p>
+<h3 id="watch-computed-update-或-beforeUpdate-中避免复杂的逻辑"><a href="#watch-computed-update-或-beforeUpdate-中避免复杂的逻辑" class="headerlink" title="watch, computed, update 或 beforeUpdate 中避免复杂的逻辑"></a>watch, computed, update 或 beforeUpdate 中避免复杂的逻辑</h3><p>复杂的逻辑可能会触发额外的组件渲染，甚至可能会引起循环渲染的问题。常见的一些情况如下：</p>
+<ul>
+<li>在计算属性中去设置数据。</li>
+<li>beforeUpdate 中去设置数据，可能会让组件重新渲染。</li>
+<li>watch 中去修改一些值，一不小心可能会重新触发 watch。</li>
+</ul>
+<h2 id="打包优化"><a href="#打包优化" class="headerlink" title="打包优化"></a>打包优化</h2><h3 id="分析包大小"><a href="#分析包大小" class="headerlink" title="分析包大小"></a>分析包大小</h3><p>我们可以通过 webpack-bundle-analyzer 来分析我们打包后文件的组成及大小。</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">npm <span class="hljs-keyword">install </span>webpack-<span class="hljs-keyword">bundle-analyzer </span>--save-dev<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+</li>
+</ul>
+<ol>
+<li><p>配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">const</span> <span class="hljs-string">BundleAnalyzerPlugin</span> <span class="hljs-string">=</span> <span class="hljs-string">require(&#x27;webpack-bundle-analyzer&#x27;).BundleAnalyzerPlugin;</span><br><br><span class="hljs-attr">configureWebpack:</span> &#123;<br>  <span class="hljs-string">...</span>,<br>  <span class="hljs-attr">plugins:</span> [<br>    <span class="hljs-string">new</span> <span class="hljs-string">BundleAnalyzerPlugin(</span>&#123;<br>      <span class="hljs-attr">analyzerMode:</span> <span class="hljs-string">&#x27;disabled&#x27;</span>,<br>      <span class="hljs-attr">generateStatsFile:</span> <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">statsOptions:</span> &#123; <span class="hljs-attr">source:</span> <span class="hljs-literal">false</span> &#125;<br>    &#125;<span class="hljs-string">)</span><br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>package.json</code>中添加脚本</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;bundle-report&quot;</span>: <span class="hljs-string">&quot;webpack-bundle-analyzer --port 8888 dist/stats.json&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>打包后执行</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">npm <span class="hljs-keyword">run</span><span class="bash"> bundle-report</span><br></code></pre></td></tr></table></figure>
+<p>浏览器会自动打开分析页面：<a target="_blank" rel="noopener" href="http://127.0.0.1:8888/">http://127.0.0.1:8888</a></p>
+</li>
+</ol>
+<h3 id="谨慎使用第三方库"><a href="#谨慎使用第三方库" class="headerlink" title="谨慎使用第三方库"></a>谨慎使用第三方库</h3><p>从上面的分析图中不难发现，我的项目中引用的第三方库占用了极大的比例，而其中 codemirror, lodash, moment, element-ui 等库都是比较常见的库。但是针对这些库，我们并没有使用他们全部的组件或功能，我们使用的也许仅仅是其中的部分甚至可能只是很小的一个方法，比如我的代码中，其实只使用了 lodash 的 cloneDeep 方法。<br>针对以上情况，我们可以采取以下措施：</p>
+<ol>
+<li><p>删除完整的 lodash，自己实现 cloneDeep 方法</p>
+</li>
+<li><p>用轻量级的 vueCodeMirrorLite 替代 codemirror</p>
+</li>
+<li><p>使用插件摆脱 moment 自带的语言环境</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle">plugins: [<br>  <span class="hljs-keyword">new</span> webpack.IgnorePlugin(<span class="hljs-regexp">/^\.\/locale$/</span>, <span class="hljs-regexp">/moment$/</span>)<br>]<br></code></pre></td></tr></table></figure>
+<p>或者用轻量级的 date-fns 代替。</p>
+</li>
+<li><p>自己实现项目的组件库，摆脱 element 的依赖。</p>
+</li>
+</ol>
+<p>这里，推荐 <a target="_blank" rel="noopener" href="https://bundlephobia.com/">Bundle Phobia</a> 来查看引用库的大小。</p>
+<h3 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h3><p>这个在<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html">官网</a>中也有描述，这里就不再展开了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上是个人的一点总结和想法，当然这也仅仅是 vue 性能优化中的冰上一角，还有很多网络，图像，缓存等等 web 实践相关的优化值得我们去思考。</p>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/vue/vue-light-app/index.html">https://www.feminzai.com/vue/vue-light-app/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/vue/vue-tips/"><i class="iconfont iconleft"></i>Vue 使用的一些小技巧</a>
+  
+  
+    <a href="/vue/vue-docker/">Docker 部署前端应用<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="toc-text">代码优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v-show-%E5%92%8C-v-if-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">v-show 和 v-if 的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-freeze"><span class="toc-text">Object.freeze()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8-deep-watch"><span class="toc-text">谨慎使用 deep watch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#watch-computed-update-%E6%88%96-beforeUpdate-%E4%B8%AD%E9%81%BF%E5%85%8D%E5%A4%8D%E6%9D%82%E7%9A%84%E9%80%BB%E8%BE%91"><span class="toc-text">watch, computed, update 或 beforeUpdate 中避免复杂的逻辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96"><span class="toc-text">打包优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%8C%85%E5%A4%A7%E5%B0%8F"><span class="toc-text">分析包大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="toc-text">谨慎使用第三方库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="toc-text">路由懒加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

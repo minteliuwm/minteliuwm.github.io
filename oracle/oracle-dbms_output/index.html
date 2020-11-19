@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Oracle 系统包 —— dbms_output 学习 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", Oracle, 数据库, dbms_output, 系统包"> 
+  
+  <meta name="description" content="dbms_output 包主要用于调试 pl/sql ..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">Oracle 系统包 —— dbms_output 学习</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic4.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Oracle 系统包 —— dbms_output 学习</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>April 01, 2017</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/oracle/oracle-dbms_output/"
+          class="leancloud" data-flag-title="Oracle 系统包 —— dbms_output 学习"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2315</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>dbms_output 包主要用于<strong>调试 pl/sql 程序</strong>，或者在 sqlplus 命令中显示信息，譬如我们可以写一个简单的匿名 pl/sql 程序块，而该块出于某种目的使用 dbms_output 包来显示一些信息</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>1.enable：在 serveroutput on 的情况下，用来使 dbms_output 生效(默认即打开)<br>2.disable：在 serveroutput on 的情况下，用来使 dbms_output 失效<br>3.put：将内容写到内存，等到 put_line 时一起输出<br>4.put_line：输出字符<br>5.new_line：作为一行的结束，可以理解为写入 buffer 时的换行符<br>6.get_line(value, index)：获取缓冲区的单行信息<br>7.get_lines(array, index)：以数组形式来获取缓冲区的多行信息</p>
+<p><strong>注意：</strong><br><strong>1.set serveroutput on：如果要在 sqlplus 中看到 dbms_output 的输出，则必须设置该参数值为 on</strong><br><strong>2.每行能容纳的最大值是 32767 bytes</strong><br><strong>3.buffer的默认值是 20000 bytes，可设置的最小值为 2000 bytes，最大值为 1000000 bytes</strong></p>
+<h2 id="put-和-new-line"><a href="#put-和-new-line" class="headerlink" title="put 和 new_line"></a>put 和 new_line</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">set</span> serveroutput <span class="hljs-keyword">on</span>;<br><span class="hljs-keyword">begin</span><br>   dbms_output.put(<span class="hljs-string">&#x27;a&#x27;</span>); <span class="hljs-comment">--写入 buffer 但不输出</span><br>   dbms_output.put(&#x27;b&#x27;); <span class="hljs-comment">--写入 buffer 但不输出</span><br>   dbms_output.new_line; <span class="hljs-comment">--回车(换行)，输出                              </span><br>   dbms_output.put_line(&#x27;hello world!&#x27;); <span class="hljs-comment">--输出并换行 </span><br>   dbms_output.put(&#x27;d&#x27;); <span class="hljs-comment">--写入 buffer 但不输出 </span><br><span class="hljs-keyword">end</span>; <br></code></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">ab<br>hello world!<br></code></pre></td></tr></table></figure>
+
+<h2 id="put-line"><a href="#put-line" class="headerlink" title="put_line"></a>put_line</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">set</span> serveroutput <span class="hljs-keyword">off</span>;<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> t(a <span class="hljs-built_in">int</span>, b <span class="hljs-built_in">int</span>, c <span class="hljs-built_in">int</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t <span class="hljs-keyword">values</span>(<span class="hljs-number">111111</span>,<span class="hljs-number">222222</span>,<span class="hljs-number">333333</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t <span class="hljs-keyword">values</span>(<span class="hljs-number">444444</span>,<span class="hljs-number">555555</span>,<span class="hljs-number">666666</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t <span class="hljs-keyword">values</span>(<span class="hljs-number">777777</span>,<span class="hljs-number">888888</span>,<span class="hljs-number">999999</span>);<br><span class="hljs-keyword">commit</span>;<br> <br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> tt(a <span class="hljs-built_in">int</span>,b <span class="hljs-built_in">varchar2</span>(<span class="hljs-number">100</span>));<br> <br><span class="hljs-keyword">declare</span><br>   msg <span class="hljs-built_in">varchar2</span>(<span class="hljs-number">120</span>);                               <br>   cursor t_cur is <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> t <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> a;      <br>   v_line varchar2(100);                            <br>   v_status integer := 0;                           <br><span class="hljs-keyword">begin</span>                                           <br>   dbms_output.enable;                              <br>   for i in t_cur loop                              <br>       msg := i.a || &#x27;,&#x27; || i.b || &#x27;,&#x27; || i.c;          <br>       dbms_output.put_line(msg); <span class="hljs-comment">--put                   </span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">loop</span>;                                       <br>                                                  <br>   dbms_output.get_line(v_line, v_status); <span class="hljs-comment">--get          </span><br>   while v_status = 0 loop                         <br>       <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> tt <span class="hljs-keyword">values</span>(v_status, v_line);        <br>       dbms_output.get_line(v_line, v_status);          <br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">loop</span>;                                       <br><span class="hljs-keyword">end</span>;<br><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> tt;<br></code></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql">a    b<br><span class="hljs-comment">--- ----------------------- </span><br>0   111111,222222,333333<br>0   444444,555555,666666<br>0   777777,888888,999999<br></code></pre></td></tr></table></figure>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/oracle/oracle-dbms_output/index.html">https://www.feminzai.com/oracle/oracle-dbms_output/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/oracle/oracle-insert/"><i class="iconfont iconleft"></i>Oracle 使用一条 insert 语句完成多表插入</a>
+  
+  
+    <a href="/oracle/oracle-plsql-func/">PL/SQL 函数学习<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E9%80%94"><span class="toc-text">用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#put-%E5%92%8C-new-line"><span class="toc-text">put 和 new_line</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#put-line"><span class="toc-text">put_line</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

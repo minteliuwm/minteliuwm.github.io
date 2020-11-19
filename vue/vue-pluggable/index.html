@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>基于 vue 的可插拔架构设计 - 少年民仔</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  <meta name="keywords" content=", 微前端, 可插拔, Vue, TypeScript, 模块, 热插拔"> 
+  
+  <meta name="description" content="简单来说，可插拔架构就好比是一个插排，可以连接一个及以..."> 
+  
+  <meta name="author" content="民仔"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.ico" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.ico" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/favicon-180x180.ico" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+  
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.feminzai.com/zhifubao.png',
+        wechat: 'https://pic.feminzai.com/weixin.png'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/img3.jpg',
+          api: ''
+        },
+        motto: {
+          default: '愿你出走半生，归来仍是少年',
+          api: ''
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+  <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?f16cd80293b0162a602f39e5edfd5459";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left">
+    
+    
+      <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+    
+  </div>
+  <div class="center">基于 vue 的可插拔架构设计</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+  
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://pic.feminzai.com/pic8.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">基于 vue 的可插拔架构设计</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>September 29, 2020</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/vue/vue-pluggable/"
+          class="leancloud" data-flag-title="基于 vue 的可插拔架构设计"></span></span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3666</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="什么是可插拔架构"><a href="#什么是可插拔架构" class="headerlink" title="什么是可插拔架构"></a>什么是可插拔架构</h2><p>简单来说，可插拔架构就好比是一个插排，可以连接一个及以上的插头，插头插上或者拔下都不影响插排的正常使用，插上去某个插头连接的电器可用，拔下来，该电器停用。而在我们前端体系中，一个个带插头的电器可以看成是项目上的各个模块，插排就是我们的项目主体（或者叫基座工程），通过配置文件来定义需要安装在基座上的模块信息，子模块的插拔不会影响基座工程的正常运行，从而达到前端模块的热部署（热插拔）。</p>
+<p>这也是微前端解决方案的一种，关于微前端的概念，应用场景，使用意义等在这里就不多说了，感兴趣的童鞋可以自行google，下面主要介绍下统一技术栈下，大型前端项目如何做模块的可插拔。</p>
+<p>本文思路最早来自于<a target="_blank" rel="noopener" href="https://tech.meituan.com/2020/02/27/meituan-waimai-micro-frontends-practice.html">微前端在美团外卖的实践</a>，在研究过程中，发现已有大佬留下了坚实的肩膀给我，本文代码来源于<a target="_blank" rel="noopener" href="https://juejin.im/post/6844904079441805326#heading-4">基于 Vue 技术栈的微前端方案实践</a>。</p>
+<h2 id="方案介绍"><a href="#方案介绍" class="headerlink" title="方案介绍"></a>方案介绍</h2><p>整体方案如下图所示：<br><img   class="lazyload" data-original="https://pic.feminzai.com/%E5%8F%AF%E6%8F%92%E6%8B%94%E6%9E%B6%E6%9E%84.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="可插拔架构"></p>
+<ol>
+<li>基座工程</li>
+</ol>
+<p>基座工程可以理解成是整个项目的主体，承载了我们所有的模块，主要是由公共模块，路由，基座框架构成，公共模块就不多说了，整个项目公用的的utils，service，components等都定义在这，路由模块的作用就是在匹配到配置的子模块路径前缀时，在本地缓存中查找是否已经加载对应模块，未加载则通过 systemjs 加载对应模块，并将模块路由通过 addRoutes 动态注册到基座项目中，而整个基座项目可以在入口函数中，通过接口获取我们模块定义的配置文件，从而实现模块的热插拔，当然，作为一个完成的项目，你也可以将一些不需要插拔的模块功能直接实现在基座工程中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 动态加载模块路由</span><br>router.beforeEach(<span class="hljs-keyword">async</span> (to, <span class="hljs-keyword">from</span>, next) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> [, , <span class="hljs-built_in">module</span>] = to.path.split(<span class="hljs-string">&#x27;/&#x27;</span>);<br><br>  <span class="hljs-keyword">if</span> (!modules[<span class="hljs-built_in">module</span>]) &#123;<br>    <span class="hljs-keyword">return</span> next();<br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (cachedModules.has(<span class="hljs-built_in">module</span>)) &#123;<br>    <span class="hljs-keyword">return</span> next();<br>  &#125;<br><br>  <span class="hljs-keyword">const</span> &#123; <span class="hljs-attr">default</span>: application &#125; = <span class="hljs-keyword">await</span> <span class="hljs-built_in">window</span>.System.import(modules[<span class="hljs-built_in">module</span>]);<br><br>  <span class="hljs-keyword">if</span> (application &amp;&amp; application.routes &amp;&amp; application.routes.length) &#123;<br>    <span class="hljs-keyword">const</span> routes = router.options.routes || [];<br>    <span class="hljs-keyword">const</span> homeRoutes = routes.find(<span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> r.name === <span class="hljs-string">&#x27;Home&#x27;</span>);<br>    <span class="hljs-keyword">if</span> (homeRoutes) &#123;<br>      !homeRoutes.children &amp;&amp; (homeRoutes.children = []);<br>      <span class="hljs-keyword">if</span> (!homeRoutes.children.length) &#123;<br>        <span class="hljs-keyword">const</span> route = application.routes[<span class="hljs-number">0</span>];<br>        homeRoutes.children.push(&#123;<br>          path: <span class="hljs-string">&#x27;&#x27;</span>,<br>          redirect: route.name<br>        &#125;);<br>      &#125;<br>      application.routes.forEach(<span class="hljs-function">(<span class="hljs-params">route: RouteConfig</span>) =&gt;</span> homeRoutes.children?.push(route));<br>      router.addRoutes([homeRoutes]); <span class="hljs-comment">// 动态添加子项目的 routes</span><br>    &#125;<br>  &#125;<br><br>  application &amp;&amp; application.beforeEach &amp;&amp; router.beforeEach(<span class="hljs-function">(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">module</span> === to.path.split(<span class="hljs-string">&#x27;/&#x27;</span>)[<span class="hljs-number">1</span>]) &#123;<br>      application.beforeEach(to, <span class="hljs-keyword">from</span>, next);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      next();<br>    &#125;<br>  &#125;);<br><br>  application &amp;&amp; application.init &amp;&amp; <span class="hljs-keyword">await</span> application.init(&#123;&#125;); <span class="hljs-comment">// 子项目初始化</span><br><br>  cachedModules.add(<span class="hljs-built_in">module</span>);<br><br>  next(to.path);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>子模块</li>
+</ol>
+<p>子模块这里和一些主流的微前端框架有一些出入，我们这里的子模块是一个单独的项目，但是又不算是一个完整的项目，他依赖于基座工程中的公用模块和方法定义，自身不需要也不支持单独部署，他的一个核心点就是对外暴露自身的路由配置，如果需要的话，在基座工程的 store 中，通过 registerModule 注册自己的 store。</p>
+<p>子模块开发完成后，我们需要将他按照 vue-cli 3 的 library 模式进行打包，方便后续在基座工程中的引入，同时，我们将打包后的项目部署到静态资源服务器上，做完这些之后，我们只需要再将项目的模块配置文件做一些更改即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 动态注册 store</span><br><span class="hljs-keyword">if</span> (Vue.__GLOBAL_POOL__.store) &#123;<br>  <span class="hljs-keyword">const</span> keys = <span class="hljs-built_in">Object</span>.keys(modules);<br>  keys.forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> &#123;<br>    Vue.__GLOBAL_POOL__.store.registerModule(<span class="hljs-string">`<span class="hljs-subst">$&#123;VUE_APP_NAME&#125;</span>/<span class="hljs-subst">$&#123;key&#125;</span>`</span>, modules[key]);<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>该架构只适用于技术栈统一的项目，如果技术栈不统一，那还是老老实实用 qiankun 吧，就我个人对微前端的理解已经一些主流框架的调研，qiankun 还是挺好用的。</li>
+<li>目前方案设计中暂时没有对全局变量冲突，样式冲突等做处理，就我自己而言，样式冲突可以用规范以及 scoped 简单处理，全局变量的话，能不用就不要用了，既然没处理，那就不用了呗，hhh。。。</li>
+<li>采用该架构，对原有项目的侵入性较小，保证各模块之间的高内聚低耦合</li>
+<li>项目模块开发支持热插拔，子模块的功能迭代不需要对整个项目做打包上线，节约了大量的打包等待时间，提高了开发体验，加快了上线的速度</li>
+<li>一些定制化的模块需求，完全可以根据极少的一些规范独立开发，在不影响整体项目的情况下做到模块的可插拔，对一些对外的商业化项目来说，可用性极强</li>
+<li>和 qiankun 等微前端框架对比，我觉得这种模块的可插拔的应用场景在于模块的独立，而不是项目的整合，如果把模块做成一个完成的项目部署，然后再去用微前端，个人来说，没必要，有点太重了</li>
+<li>以上总结纯属个人瞎BB，大家看看就好</li>
+</ol>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>好吧，我知道自己的这篇文章很水，代码也是借鉴的，但是在这个方案的可行性上自己确实做了大量的研究和工作，只是不知道该怎么表达，有兴趣的朋友可以找我私下交流，虽然我不会写文章，但是我 boast 很强，hhhh。</p>
+<p>最后，按照惯例贴一下该项目的 git 仓库地址：<a target="_blank" rel="noopener" href="https://github.com/minteliuwm/vue-pluggable-frame">https://github.com/minteliuwm/vue-pluggable-frame</a> 这里我把基座工程和子模块放在一个项目中，然后贴了一份自己本地测试时的 nginx 配置，有兴趣的童鞋可以了解一下，用不用什么的都无所谓，重点是走过路过 star 给一个呗。</p>
+<p>最后的最后，如果对该种方案有兴趣，或者有什么问题建议啥的，欢迎留言交流。</p>
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>民仔</li>
+  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/vue/vue-pluggable/index.html">https://www.feminzai.com/vue/vue-pluggable/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" rel="tag">微前端</a></li></ul>
+
+        
+<nav class="nav">
+  
+    <a href="/vue/vue-monaco-editor/"><i class="iconfont iconleft"></i>Vue 中使用 Monaco editor</a>
+  
+  
+    <a href="/vue/vue-custom-cli/">如何搭建一个简单的脚手架<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
+        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
+        placeholder: "走过路过不要错过~",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          <aside class="toc-wrap">
+  <h3 class="toc-title">文章目录</h3>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%AF%E6%8F%92%E6%8B%94%E6%9E%B6%E6%9E%84"><span class="toc-text">什么是可插拔架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BB%8B%E7%BB%8D"><span class="toc-text">方案介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-text">最后</span></a></li></ol>
+</aside>
+        
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=790198245 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/minteliuwm " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:minteliu.l@gmail.com " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color=''">
+      <i class="iconfont footer-social-item  iconmail "></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Copyright 2020 by 民仔  |  <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">浙ICP备18020734号</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz',
+      appKey: 'sjhs9jytei1kKiVxcfh8QVDV',
+      serverURLs: 'https://statistics.feminzai.com',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.feminzai.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+    
+  });
+</script>
+
+
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>
