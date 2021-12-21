@@ -7,15 +7,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sqlplus 连接远程服务器 - 少年民仔</title>
+  <title>工具 - 少年民仔</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
 
   
-  <meta name="keywords" content=", Oracle, 数据库, Sqlplus, Sql, 服务器"> 
   
-  <meta name="description" content="sqlplus user/password@ip[:p..."> 
   
   <meta name="author" content="民仔"> 
 
@@ -137,7 +135,7 @@
       <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
     
   </div>
-  <div class="center">Sqlplus 连接远程服务器</div>
+  <div class="center">标签</div>
   <div class="right">
     <i class="iconfont iconmenu j-navbar-menu"></i>
   </div>
@@ -186,105 +184,23 @@
   </div>
 </nav>
   <main id="main">
-  <div class="article-wrap">
-    <div class="row container">
-      <div class="col-xl-3"></div>
-      <div class="col-xl-6"><article class="article">
-  <div class="wrap">
-    <section class="head">
-  <img   class="lazyload" data-original="https://pic.feminzai.com/img7.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
-  <div class="head-mask">
-    <h1 class="head-title">Sqlplus 连接远程服务器</h1>
-    <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>July 17, 2017</span
-        class="post-info-item">
-      
-      <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/oracle/oracle-sqlplus/"
-          class="leancloud" data-flag-title="Sqlplus 连接远程服务器"></span></span>
-      
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>181</span>
-    </div>
-  </div>
-</section>
-    <section class="main">
-      <section class="content">
-        <h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sqlplus <span class="hljs-keyword">user</span>/<span class="hljs-keyword">password</span>@ip[:port]/service_name[<span class="hljs-keyword">as</span> sysdba]<br></code></pre></td></tr></table></figure>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">sqlplus sys/<span class="hljs-symbol">pwd@</span><span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span>:<span class="hljs-number">1521</span>/test<br></code></pre></td></tr></table></figure>
-<p><strong>注意：使用默认端口1521时，可省略端口输入</strong></p>
-      </section>
-      <section class="extra">
-        
-        <ul class="copyright">
-  
-  <li><strong>本文作者：</strong>民仔</li>
-  <li><strong>本文链接：</strong><a href="https://www.feminzai.com/oracle/oracle-sqlplus/index.html">https://www.feminzai.com/oracle/oracle-sqlplus/index.html</a></li>
-  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
-      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
-  
-</ul>
+  <section class="archive">
+    <div class="archive-container">
+      <div class="archive-post">
+        <h2 class="archive-total"># 工具</h2>
         
         
         
-  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
-
+        <h3 class="archive-year">2021</h3>
         
-<nav class="nav">
-  
-    <a href="/vue/vue-next/"><i class="iconfont iconleft"></i>Vue beforeRouteEnter 的 next 执行时机</a>
-  
-  
-    <a href="/oracle/oracle-index/">Oracle 索引学习<i class="iconfont iconright"></i></a>
-  
-</nav>
-
-      </section>
-      
-      <section class="comments">
-  
-  <div class="btn" id="comments-btn">查看评论</div>
-  
-  
-<div id="valine"></div>
-<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-  window.onload = function () {
-    var loadValine = function () {
-      new Valine({
-        el: '#valine',
-        app_id: "qVUB8tpClEUqD1PqExfIoapK-gzGzoHsz",
-        app_key: "sjhs9jytei1kKiVxcfh8QVDV",
-        placeholder: "走过路过不要错过~",
-        avatar: "mp",
-        pageSize: "10",
-        lang: "zh-CN",
-      });
-    }
-    if ( true ) {
-      $("#comments-btn").on("click", function () {
-        $(this).hide();
-        loadValine();
-      });
-    } else {
-      loadValine();
-    }
-  };
-</script>
-
-</section>
-      
-    </section>
-  </div>
-</article></div>
-      <div class="col-xl-3">
-        
-          <aside class="toc-wrap">
-  <h3 class="toc-title">文章目录</h3>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a></li></ol>
-</aside>
+        <div class="archive-item">
+          <a class="archive-date" href="/mac/mac-alfred/">12/18</a>
+          <a class="archive-title" href="/mac/mac-alfred/">Alfred - 你值得拥有</a>
+        </div>
         
       </div>
     </div>
-  </div>
+  </section>
 </main>
   <footer class="footer">
   <div class="footer-social">

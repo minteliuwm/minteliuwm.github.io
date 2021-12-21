@@ -202,7 +202,7 @@
       <span class="post-info-item"><i class="iconfont iconeye"></i><span id="/oracle/oracle-logminer/"
           class="leancloud" data-flag-title="Oracle Logminer 简单使用"></span></span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1656</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1654</span>
     </div>
   </div>
 </section>
@@ -225,13 +225,11 @@
 </ol>
 <h1 id="如何使用-LogMiner-分析在线重做日志"><a href="#如何使用-LogMiner-分析在线重做日志" class="headerlink" title="如何使用 LogMiner 分析在线重做日志"></a>如何使用 LogMiner 分析在线重做日志</h1><h2 id="第一步，准备工作（安装-LogMiner-）"><a href="#第一步，准备工作（安装-LogMiner-）" class="headerlink" title="第一步，准备工作（安装 LogMiner ）"></a>第一步，准备工作（安装 LogMiner ）</h2><ol>
 <li>以 sysdba 登录数据库：<code>sqlplus / as sysdba</code></li>
-<li>检查是否带有 LogMiner 分析包，没有则运行以下两个 sql 文件：</li>
-</ol>
-<ul>
+<li>检查是否带有 LogMiner 分析包，没有则运行以下两个 sql 文件：<ul>
 <li>$ORACLE_HOME/rdbms/admin/dbmslm.sql</li>
 <li>$ORACLE_HOME/rdbms/admin/dbmslmd.sql</li>
 </ul>
-<ol start="3">
+</li>
 <li>查看 oracle 日志文件<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> v$<span class="hljs-keyword">logfile</span>;<br></code></pre></td></tr></table></figure>
 
 </li>

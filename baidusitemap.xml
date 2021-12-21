@@ -1,163 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.feminzai.com/mac/mac-alfred/</loc>
+    <lastmod>2021-12-20</lastmod>
+  </url>
+  <url>
     <loc>https://www.feminzai.com/vue/vue-tips/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/vue/vue-code-event/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/vue/vue-component-params/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/vue/vue-custom-cli/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
-    <loc>https://www.feminzai.com/vue/vue-custom-ui/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <loc>https://www.feminzai.com/vue/vue-component-params/</loc>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/vue/vue-docker/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/vue/vue-express/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/vue/vue-light-app/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/vue/vue-monaco-editor/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/vue/vue-next/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/vue/vue-pluggable/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/vue/vue-router-history/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-goldengate2/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-goldengate3/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-index/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-insert/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-lead-lag/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-logminer/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-merge-into/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-over-rank/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-plsql-func/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-plsql-grammar/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-regular/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-row-merge/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-sqlplus/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-store-procedure/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-subquery/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/vue/vue-code-diff/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
-    <loc>https://www.feminzai.com/java/java-trigger/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <loc>https://www.feminzai.com/vue/vue-express/</loc>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
-    <loc>https://www.feminzai.com/mysql/mysql-1419/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <loc>https://www.feminzai.com/vue/vue-light-app/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/vue/vue-monaco-editor/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/vue/vue-next/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/vue/vue-pluggable/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/vue/vue-router-history/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/vue/vue-custom-ui/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-insert/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-lead-lag/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-logminer/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-merge-into/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-over-rank/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-plsql-func/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-plsql-grammar/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-regular/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-row-merge/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-sqlplus/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-store-procedure/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-subquery/</loc>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/mysql/mysql-install/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-aggregation-func/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-archive/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-calc/</loc>
-    <lastmod>2020-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://www.feminzai.com/oracle/oracle-coalesce/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-dbms_output/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-decode/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-coalesce/</loc>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-empty/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-field-split/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
   </url>
   <url>
     <loc>https://www.feminzai.com/oracle/oracle-goldengate1/</loc>
-    <lastmod>2020-11-19</lastmod>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-goldengate2/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-goldengate3/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/oracle/oracle-index/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/java/java-trigger/</loc>
+    <lastmod>2021-12-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.feminzai.com/mysql/mysql-1419/</loc>
+    <lastmod>2021-12-17</lastmod>
   </url>
 </urlset> 
